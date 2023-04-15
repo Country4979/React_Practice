@@ -5,7 +5,7 @@ Web similar to Wallapop made with React
 
 - Create-react-app
 ```
-npx -create react-app
+npx create-react-app nameOfApp
 ```
 
 

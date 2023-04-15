@@ -1,0 +1,248 @@
+/*Header*/
+@import url('https://fonts.cdnfonts.com/css/ananda-2');
+
+img {
+    object-fit: cover;
+    width: 250px;
+}
+
+header {
+    font-family: 'Ananda', 'Ananda Black';
+    font-size: 3em;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.headerText {
+    grid-column: 1 / 4;
+    grid-row: 1;
+}
+
+.headerImg {
+    background-color: azure;
+    grid-column: 5 / 6;
+    grid-row: 1;
+}
+
+/*App por defecto*/
+a {
+  text-decoration: none;
+  color: inherit;
+}
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+/*Navbar*/
+
+.navbar a {
+  text-decoration: none;
+}
+
+.navbar a:visited {
+  text-decoration: none;
+  color: rgb(210, 156, 5);
+}
+
+.navbar a:active {
+  color: rgb(227, 201, 129);
+}
+
+.navbar {
+  color: rgb(210, 156, 5);
+  font-family: 'Ananda', 'Ananda Black';
+  font-style: italic; 
+  background-color: beige;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  align-items: center;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 15px;
+  margin-bottom: 15px;
+}
+
+#loginLink {
+  grid-column: 6;
+  grid-row: 1;
+  text-align: center;
+}
+#signupLink{
+  grid-column: 5;
+  grid-row: 1;
+  text-align: center;
+}
+
+#createNewAddLink {
+  grid-column: 4;
+  grid-row: 1;
+  text-align: center;
+}
+
+#backHome{
+  grid-column: 2;
+  grid-row: 1;
+  text-align: center;
+}
+
+#logged p{
+  font-size: 16px; 
+  text-align: center;
+  font-weight: normal;
+  margin: 0;
+}
+
+#logged span{
+  font-weight: bolder;
+}
+
+/*Loginpage*/
+label{
+  display: inline-block;
+  width: 80px;
+  margin-bottom: 10px;
+  text-align: right;
+}
+button {
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.infoContainer {
+    border: solid 1px rgb(247, 211, 66);
+    border-radius: 15px;
+    margin-top:5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+    justify-content: center;
+
+}
+
+.rigthSide {
+    text-align: center;
+    display: inline-block;
+    justify-content: space-around;
+    background-color: beige;
+    border-radius: 15px;
+    margin-top: 20px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;  
+}
+
+.rigthSide p {
+    margin-bottom: 10px;
+}
+
+.leftSide {
+    display: block;
+    text-align: center;
+}
+
+.tittle {
+    text-align: center;
+    font-style: oblique;
+    text-decoration: underline;
+}
+
+.closeSessionBefore{
+    text-align: right;
+    margin-right: -130px;
+}
+
+#loginLink {
+    display: none;
+}
+
+#hello {
+    width: 100%;
+    padding: 15px;
+    padding-top: -15px;
+    border-radius: 15px;
+    font-family: 'Ananda', 'Ananda Black';
+    position: fixed;
+    bottom: 10%;
+    z-index: 99;
+    font-size: 3rem;
+}
+
+#hello p{
+    text-align: center;
+}
+
+#textLogin {
+    width: 100%;
+    font-style: oblique;
+    text-decoration: underline;
+}
+
+#logUser {
+    padding-top: 10px;
+    margin-left: 25px;
+}
+
+#closeSessions {
+    color: rgb(210, 156, 5);
+    font-family: 'Ananda', 'Ananda Black';
+    font-weight: bolder;
+    font-style: oblique;
+    font-size: x-large;
+}
+
+a {
+    text-decoration: none;
+    font-style: italic;
+}
+
+a:visited {
+    text-decoration: none;
+    color: rgb(210, 156, 5);
+}
+
+a:active {
+    color: rgb(227, 201, 129);
+}
