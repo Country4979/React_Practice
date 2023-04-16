@@ -29,7 +29,7 @@ const NewAdv = () => {
                 <input type="text" id="addName" name="addName" placeholder="Product name" size="25" required /><br />
 
                 <label htmlFor="addPhoto" className="tittle">Foto del producto:</label>
-                <input type="url" id="addPhoto" name="addPhoto" placeholder="Product image url" /><br />
+                <input type="url" id="addPhoto" name="addPhoto" placeholder="Product image url" onChance={event => {console.log(event.target.files[0])}}/><br />
                 
                 <label htmlFor="addTag" className="tittle">Tag</label>
                 <input type="text" id="addTag" name="addTag" /> <br />

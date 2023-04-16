@@ -1,44 +1,58 @@
 
+import { useState } from 'react';
 import Button from '../shared/Button'
 import { login } from './service';
 
-const LoginPage = () => {
+const LoginPage = ({onLogin, onLogout}) => {
+    const [credentials, setCredentials] = useState({
+        email: '',
+        password: '',
+    });
 
     const handleSubmit = async event => {
         event.preventDefault();
+        await login(credentials)
+            
+        console.log(credentials)
 
-       const response = await login(
-            {
-            email: event.target.usermail.value,
-            password:  event.target.password.value,
-            }
-        )
-        console.log(response)
-    }
+        onLogin();
+    };
     
+    const handleChange = event => {
+        setCredentials({
+            ...credentials,
+            [event.target.name]: event.target.value,
+          });
+    };
+
+    const buttonDisabled = !credentials.email || !credentials.password;
+   
     return (
         <>
         <div className="infoContainer">
             <div className="leftSide" id="leftSide">
-                <h1 id="textLogin">¿New user?</h1>
-                <p>Please <Button variant="primary">Signup</Button> to access AlaPop and be able to buy and sell your items.</p>
+                <h1 id="textLogin">Already Logged?</h1>
+                <p>Please <Button variant="primary" onClick={onLogout}>logout</Button> before to access AlaPop.</p>
             </div>
         
             <div className="rigthSide">
                 <form id="logUser" onSubmit={handleSubmit}>
-                    <label htmlFor="usermail">email:</label>
+                    <label htmlFor="email">email:</label>
                     <input
                     type="email"
-                    name="usermail"
-
+                    name="email"
+                    onChange={handleChange}
+                    value={credentials.email}
                     />
                     <br />
                     <label htmlFor="password">Password:</label>
                     <input
                     type="password"
                     name="password"
+                    onChange={handleChange}
+                    value={credentials.password}
                     />
-                    <Button type="submit" variant="primary">
+                    <Button type="submit" variant="primary" disabled={buttonDisabled}>
                     Login
                     </Button>
                 </form>
