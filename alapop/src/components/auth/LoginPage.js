@@ -1,10 +1,19 @@
 
 import Button from '../../shared/Button'
+import { login } from './service';
 
 const LoginPage = () => {
 
-    const handleSubmit = event => {
-        console.log('submit', event)
+    const handleSubmit = async event => {
+        event.preventDefault();
+
+       const response = await login(
+            {
+            email: event.target.email.value,
+            password:  event.target.password.value,
+            }
+        )
+        console.log(response)
     }
     
     return (
@@ -17,18 +26,17 @@ const LoginPage = () => {
         
             <div className="rigthSide">
                 <form id="logUser" onSubmit={handleSubmit}>
-                    <label for="username">Username:</label>
+                    <label htmlFor="email">email:</label>
                     <input
-                    type="text"
+                    type="email"
                     name="username"
 
                     />
                     <br />
-                    <label for="password">Password:</label>
+                    <label htmlFor="password">Password:</label>
                     <input
                     type="password"
                     name="password"
-
                     />
                     <Button type="submit" variant="primary">
                     Login
