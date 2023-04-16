@@ -1,4 +1,4 @@
-import Button from "../../shared/Button"
+import Button from "../shared/Button"
 import { signup } from "./service";
 
 const Signup = () => {

@@ -1,5 +1,5 @@
 
-import Button from '../../shared/Button'
+import Button from '../shared/Button'
 import { login } from './service';
 
 const LoginPage = () => {
@@ -9,7 +9,7 @@ const LoginPage = () => {
 
        const response = await login(
             {
-            email: event.target.email.value,
+            email: event.target.usermail.value,
             password:  event.target.password.value,
             }
         )
@@ -26,10 +26,10 @@ const LoginPage = () => {
         
             <div className="rigthSide">
                 <form id="logUser" onSubmit={handleSubmit}>
-                    <label htmlFor="email">email:</label>
+                    <label htmlFor="usermail">email:</label>
                     <input
                     type="email"
-                    name="username"
+                    name="usermail"
 
                     />
                     <br />
