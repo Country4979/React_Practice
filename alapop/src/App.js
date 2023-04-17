@@ -2,12 +2,12 @@ import LoginPage from './components/auth/LoginPage'
 import './App.css';
 import Headers from './components/layout/Headers';
 import Navbar from './components/layout/Navbar';
-import NewAdv from './components/adverts/NewAdvertPage';
+//import NewAdv from './components/adverts/NewAdvertPage';
 import AdvertsPage from './components/adverts/AdvertsPage';
 import { useState } from 'react';
 
-function App() {
-  const [isLogged, setIsLogged] = useState(false);
+function App({isInitiallyLogged}) {
+  const [isLogged, setIsLogged] = useState(isInitiallyLogged);
 
   const handleLogin = () => {
     setIsLogged(true);

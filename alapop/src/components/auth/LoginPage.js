@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import Button from '../shared/Button'
-import { login } from './service';
+import { login, logout } from './service';
 
 const LoginPage = ({isLogged, onLogin, onLogout}) => {
     const [credentials, setCredentials] = useState({
@@ -25,6 +25,11 @@ const LoginPage = ({isLogged, onLogin, onLogout}) => {
           });
     };
 
+    const handleClick = async () => {
+        await logout();
+        onLogout();
+    }
+
     const buttonDisabled = !credentials.email || !credentials.password;
     const logoutButtonDisabbled = isLogged;
    
@@ -33,7 +38,7 @@ const LoginPage = ({isLogged, onLogin, onLogout}) => {
         <div className="infoContainer">
             <div className="leftSide" id="leftSide">
                 <h1 id="textLogin">Already Logged?</h1>
-                <p>Please <Button variant="primary" onClick={onLogout} disabled={!logoutButtonDisabbled}>logout</Button> before to access AlaPop.</p>
+                <p>Please <Button variant="primary" onClick={handleClick} disabled={!logoutButtonDisabbled}>logout</Button> before to access AlaPop.</p>
             </div>
         
             <div className="rigthSide">
