@@ -15,14 +15,16 @@ function App() {
 
   const handleLogout = () => {
     setIsLogged(false);
+    console.log('click en logout')
+    console.log(isLogged)
   };
 
-  
+
   return (
     <div className="App">
       <Headers />
       <Navbar isLogged={isLogged} onLogout={handleLogout}/>
-      {isLogged ? <AdvertsPage /> : <LoginPage onLogout={handleLogout} onLogin={handleLogin}/>}
+      {isLogged ? <AdvertsPage /> : <LoginPage isLogged={isLogged} onLogout={handleLogout} onLogin={handleLogin}/>}
     </div>
   );
 }

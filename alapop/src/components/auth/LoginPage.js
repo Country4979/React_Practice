@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Button from '../shared/Button'
 import { login } from './service';
 
-const LoginPage = ({onLogin, onLogout}) => {
+const LoginPage = ({isLogged, onLogin, onLogout}) => {
     const [credentials, setCredentials] = useState({
         email: '',
         password: '',
@@ -26,13 +26,14 @@ const LoginPage = ({onLogin, onLogout}) => {
     };
 
     const buttonDisabled = !credentials.email || !credentials.password;
+    const logoutButtonDisabbled = isLogged;
    
     return (
         <>
         <div className="infoContainer">
             <div className="leftSide" id="leftSide">
                 <h1 id="textLogin">Already Logged?</h1>
-                <p>Please <Button variant="primary" onClick={onLogout}>logout</Button> before to access AlaPop.</p>
+                <p>Please <Button variant="primary" onClick={onLogout} disabled={!logoutButtonDisabbled}>logout</Button> before to access AlaPop.</p>
             </div>
         
             <div className="rigthSide">
@@ -51,10 +52,12 @@ const LoginPage = ({onLogin, onLogout}) => {
                     name="password"
                     onChange={handleChange}
                     value={credentials.password}
-                    />
+                    /><br />
                     <Button type="submit" variant="primary" disabled={buttonDisabled}>
                     Login
-                    </Button>
+                    </Button><br />
+                    <label htmlFor="rememberPass">Remember Password?</label>
+                    <input type="checkbox" />
                 </form>
             </div>
         </div>
