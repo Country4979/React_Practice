@@ -1,25 +1,24 @@
-import { logout } from "../auth/service";
+
 import Button from "../shared/Button";
+import { Link } from 'react-router-dom';
 
 const Navbar = ({isLogged, onLogout}) => {
-    
-    const handleClick = async () => {
-        await logout();
-        onLogout();
-    }
+  
 
+    const handleClick = () => {
+        console.log('handleClick');
+    }
+    
     const buttonDisabbled = isLogged;
 
 
     return (
-        <section className="userActions">
         <div className = "navbar">
             <div id="logged"></div>
             <Button className="NavBarButton" variant="primary" disabled={!buttonDisabbled}>New Adv.</Button>
-            <Button className="NavBarButton" variant="primary" disabled={buttonDisabbled}>Login</Button>
-            <Button className="NavBarButton" variant="primary" disabled={!buttonDisabbled} onClick={handleClick}>Logout</Button>
+            
+            <Link to="/WarningLogout" as={Button} className="NavBarButton" variant="primary" disabled={!buttonDisabbled} onClick={handleClick}>Logout</Link>
         </div>
-    </section>
     )
 };
 

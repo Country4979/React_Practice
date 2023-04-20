@@ -2,7 +2,7 @@ import Button from "../shared/Button"
 import { createNewAdv } from "./service"
 
 
-const NewAdv = () => {
+const NewAdvertPage = () => {
     const handleSubmit = async event => {
         const response = await createNewAdv(
             {
@@ -29,13 +29,10 @@ const NewAdv = () => {
                 <input type="text" id="addName" name="addName" placeholder="Product name" size="25" required /><br />
 
                 <label htmlFor="addPhoto" className="tittle">Foto del producto:</label>
-                <input type="url" id="addPhoto" name="addPhoto" placeholder="Product image url" onChance={event => {console.log(event.target.files[0])}}/><br />
+                <input type="file" id="addPhoto" name="addPhoto" placeholder="Product image url" onChance={event => {console.log(event.target.files[0])}}/><br />
                 
                 <label htmlFor="addTag" className="tittle">Tag</label>
                 <input type="text" id="addTag" name="addTag" /> <br />
-                
-                <label htmlFor="addDescription">Descripción del producto:</label><br />
-                <textarea name="addDescription" id="addDescription" className="tittle" cols="30" rows="10" placeholder="Describe your product here." required></textarea><br />
                 
                 <label htmlFor="addSelect" className="tittle">Este artículo se:</label>
                 <select name="addSelect" id="addSelect"> 
@@ -59,4 +56,4 @@ const NewAdv = () => {
     )
 }
 
-export default NewAdv
+export default NewAdvertPage

@@ -1,14 +1,16 @@
-
+//import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import Button from '../shared/Button'
 import { login, logout } from './service';
+//import Modal from '../shared/Modal';
+//import { isOpen, closeModal } from '../shared/useModal'
 
 const LoginPage = ({isLogged, onLogin, onLogout}) => {
     const [credentials, setCredentials] = useState({
         email: '',
         password: '',
     });
-
+    
     const handleSubmit = async event => {
         event.preventDefault();
         await login(credentials)
@@ -25,6 +27,17 @@ const LoginPage = ({isLogged, onLogin, onLogout}) => {
           });
     };
 
+    const handleClickModal = () => {
+        return (
+            <div>
+                <Button /*onClick={closeModal}*/>No</Button>
+                <Button onClick={handleClick}>Yes I'm sure</Button>
+
+            </div>
+            //<Modal isOpen={isOpen} closeModal={closeModal}>
+            //</Modal>
+        )
+    }
     const handleClick = async () => {
         await logout();
         onLogout();
@@ -32,13 +45,13 @@ const LoginPage = ({isLogged, onLogin, onLogout}) => {
 
     const buttonDisabled = !credentials.email || !credentials.password;
     const logoutButtonDisabbled = isLogged;
-   
+
     return (
         <>
         <div className="infoContainer">
             <div className="leftSide" id="leftSide">
                 <h1 id="textLogin">Already Logged?</h1>
-                <p>Please <Button variant="primary" onClick={handleClick} disabled={!logoutButtonDisabbled}>logout</Button> before to access AlaPop.</p>
+                <p>Please <Button variant="primary" onClick={handleClickModal} disabled={!logoutButtonDisabbled}>logout</Button> before to access AlaPop.</p>
             </div>
         
             <div className="rigthSide">
@@ -61,8 +74,7 @@ const LoginPage = ({isLogged, onLogin, onLogout}) => {
                     <Button type="submit" variant="primary" disabled={buttonDisabled}>
                     Login
                     </Button><br />
-                    <label htmlFor="rememberPass">Remember Password?</label>
-                    <input type="checkbox" />
+                    
                 </form>
             </div>
         </div>

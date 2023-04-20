@@ -1,53 +1,54 @@
-import { useEffect, useState } from "react"
-import { getLastAdv } from "./service";
-import Button from "../shared/Button";
+import { useEffect, useState } from 'react';
+import { getLastAdv } from './service';
+import Button from '../shared/Button';
+import { Link } from 'react-router-dom';
+import Advert from './Advert'
 
-const AdvertsPage = (product) => {
+const EmptyList = () => (
+    <div style={{ textAlign: 'center' }}>
+                
+        <p>Sorry, no adverts yet.</p>
+        <Button as={Link} to="/adverts/new" variant="primary">Be the first to publish one...</Button>
+                
+    </div>
+);
+
+const AdvertsPage = (advert) => {
+    const [isLoading, setIsLoading] = useState(true)
     const [advs, setAdv] = useState([]);
 
     useEffect(() => {
+        setIsLoading(true);
         getLastAdv().then(advs => setAdv(advs));
+
+        setIsLoading(false)
     },[]);
 
     return (
         <>
+        {isLoading ? (
+            <di>Loading...INTENTAR PONER SPINNER</di>
+        ) : (
         <div>
         {!!advs.length ? (
-            <a href="/addDetail.html?addId=${product.id}">    
-            {advs.map(adv =>(
-                <div className="add">
-                    <div className="productInfo">
-                    
-                        <div className="productName">
-                            <h1>${adv.name}</h1>
-                        </div>
-
-                        <div className = "productData">
-                            <p> Se <span id="isSale" >${product.select}</span> este producto por:</p>
-                            <h2>${product.price} €</h2>
-                            
-                            <div className = "typeTag">
-                                
-                            </div>
-                        </div>
-
-                        <div className="product-img">
-                            <img src="${product.photo}" /> 
-                        </div>
-                    </div>
-                </div>
-
-            ))}
-            </a>
+            <ul>
+                {advs.map(adv =>(
+                <li key={adv.id}>
+                    <Link to={`/adverts/${adv.id}`}>
+                        {/*<Advert {...advert} />*/}
+                    </Link>
+                </li>
+                ))};
+            </ul>
             ):(
-                <>
-                <p>Sorry, no adverts were found.</p>
-                <Button variant="primary">Be the first to publish one...</Button>
-                </>
-            )}
-        </div>
+                <EmptyList />
+            )
+        }
+        </div>    
+        )
+        }
         </>
     )
-}
+};    
 
 export default AdvertsPage
