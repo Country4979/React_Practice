@@ -2,53 +2,71 @@ import { useEffect, useState } from 'react';
 import { getLastAdv } from './service';
 import Button from '../shared/Button';
 import { Link } from 'react-router-dom';
-import Advert from './Advert'
+import Advert from './Advert';
 
 const EmptyList = () => (
-    <div style={{ textAlign: 'center' }}>
-                
-        <p>Sorry, no adverts yet.</p>
-        <Button as={Link} to="/adverts/new" variant="primary">Be the first to publish one...</Button>
-                
-    </div>
+  <div style={{ textAlign: 'center' }}>
+    <p>Sorry, no adverts yet.</p>
+    <Button as={Link} to='/adverts/new' variant='primary'>
+      Be the first to publish one...
+    </Button>
+  </div>
 );
 
 const AdvertsPage = (advert) => {
-    const [isLoading, setIsLoading] = useState(true)
-    const [advs, setAdv] = useState([]);
+  const [query, setQuery] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [adverts, setAdverts] = useState([]);
 
-    useEffect(() => {
-        setIsLoading(true);
-        getLastAdv().then(advs => setAdv(advs));
+  useEffect(() => {
+    setIsLoading(true);
 
-        setIsLoading(false)
-    },[]);
+    getLastAdv().then((adverts) => setAdverts(adverts));
 
-    return (
-        <>
-        {isLoading ? (
-            <di>Loading...INTENTAR PONER SPINNER</di>
-        ) : (
+    setIsLoading(false);
+  }, []);
+
+  const filteredAdverts = adverts.filter((advert) =>
+    advert.name.toUpperCase().startsWith(query.toLocaleUpperCase())
+  );
+
+  return (
+    <>
+      {isLoading ? (
+        <div>Loading...INTENTAR PONER SPINNER</div>
+      ) : (
         <div>
-        {!!advs.length ? (
-            <ul>
-                {advs.map(adv =>(
-                <li key={adv.id}>
-                    <Link to={`/adverts/${adv.id}`}>
-                        {/*<Advert {...advert} />*/}
+          {!!adverts.length ? (
+            <>
+              <div className='filterArea'>
+                <label>
+                  Search by name: {''}
+                  <input
+                    type='text'
+                    style={{ borderWidth: 1 }}
+                    value={query}
+                    onChange={(event) => setQuery(event.target.value)}
+                  />
+                </label>
+              </div>
+              <ul>
+                {filteredAdverts.map((advert) => (
+                  <li key={advert.id}>
+                    <Link to={`/adverts/${advert.id}`}>
+                      {<Advert {...advert} />}
                     </Link>
-                </li>
-                ))};
-            </ul>
-            ):(
-                <EmptyList />
-            )
-        }
-        </div>    
-        )
-        }
-        </>
-    )
-};    
+                  </li>
+                ))}
+                ;
+              </ul>
+            </>
+          ) : (
+            <EmptyList />
+          )}
+        </div>
+      )}
+    </>
+  );
+};
 
-export default AdvertsPage
+export default AdvertsPage;
