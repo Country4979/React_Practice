@@ -2,11 +2,13 @@ import React from 'react';
 import './Advert.css';
 
 const Advert = (advs) => {
+  const advDate = new Date(advs.createdAt)
   return (
     <div className='add'>
       <div className='productInfo'>
         <div className='productName'>
           <h1>{advs.name}</h1>
+          <p>Created at: {`${advDate.toUTCString()}`}</p>
         </div>
 
         <div className='productData'>

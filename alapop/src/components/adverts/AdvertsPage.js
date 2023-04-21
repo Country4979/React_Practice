@@ -14,9 +14,10 @@ const EmptyList = () => (
 );
 
 const AdvertsPage = (advert) => {
-  const [query, setQuery] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [adverts, setAdverts] = useState([]);
+  const [query, setQuery] = useState('');
+  const [select, setSelect] = useState('');
 
   useEffect(() => {
     setIsLoading(true);
@@ -26,8 +27,9 @@ const AdvertsPage = (advert) => {
     setIsLoading(false);
   }, []);
 
-  const filteredAdverts = adverts.filter((advert) =>
-    advert.name.toUpperCase().startsWith(query.toLocaleUpperCase())
+  const filteredAdverts = adverts.filter(
+    (advert) => advert.name.toUpperCase().startsWith(query.toLocaleUpperCase())
+    //.filter((advert) => advert.sale)
   );
 
   return (
@@ -39,15 +41,31 @@ const AdvertsPage = (advert) => {
           {!!adverts.length ? (
             <>
               <div className='filterArea'>
-                <label>
-                  Search by name: {''}
+                <div>
+                  <h1>Searching Area</h1>
+                </div>
+                <div className='lefttSide'>
+                  <label htmlFor='filterByName'>By name: {''}</label>
+                  <label htmlFor='filterBySale'>Is : {''}</label>
+                </div>
+                <div className='rightSide'>
                   <input
+                    name='filterByName'
                     type='text'
                     style={{ borderWidth: 1 }}
                     value={query}
                     onChange={(event) => setQuery(event.target.value)}
                   />
-                </label>
+                  <select
+                    name='filterBySale'
+                    value={select}
+                    onChange={(event) => setSelect(event.target.value)}
+                  >
+                    <option value='false'>for Sale</option>
+                    <option value='true'>buying</option>
+                    <option value='false&true'>All</option>
+                  </select>
+                </div>
               </div>
               <ul>
                 {filteredAdverts.map((advert) => (
@@ -57,7 +75,6 @@ const AdvertsPage = (advert) => {
                     </Link>
                   </li>
                 ))}
-                ;
               </ul>
             </>
           ) : (
