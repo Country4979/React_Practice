@@ -1,41 +1,57 @@
-import { useParams } from 'react-router-dom';
-const AdvertPage = props => {
-    const params = useParams()
+import { useParams, useNavigate } from 'react-router-dom';
+import Button from '../shared/Button';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { deleteAdvert, getAdvert } from './service';
+import Advert from './Advert';
 
-    return (/*
+const AdvertPage = () => {
+    const params = useParams();
+    const navigate = useNavigate();
+    const [advert, setAdvert] = useState([]);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        console.log(params.id);
+        getAdvert(params.id)
+            .then((advert) => setAdvert(advert))
+            .catch((error) => {
+                if (error.status === 404) {
+                    return navigate('/404');
+                }
+                setError(error);
+            });
+    }, [params.id, navigate]);
+
+    const handleDelete = () => {
+        deleteAdvert(params.id).then(() =>
+            setTimeout(() => {
+                navigate('/adverts');
+            }, 3000)
+        );
+        return <div>This advertisement has been deleted</div>;
+    };
+
+    return (
         <>
-        <div className="add">
-            <div className="productInfo"> 
-                <div className="userInfo">
-                    <p>User: ${advs.userId}</p>
-                </div>
-                <div className="productName">
-                    <h1>${advs.name}</h1>
-                    
-                </div>
-                <div className="productImg">
-                    <p>Poner aquí la foto</p>
+            <h1>Advertisement Detail</h1>
 
-                </div>
-            
-                <div className = "productData">
-                    <p> Se <span id="isSale" >${advs.select}</span> este producto por:</p>
-                    <h2>${advs.price} €</h2>
-                    <div className = "typeTag">
-                    </div>
-                </div>
-                <div userButoons>
-                    <div className="editAnddeleteButton">
-                        <Button id="deleteAdd" className="buttons">Delete Ad</Button>
-
-                        <p>Aquí enlance "href="editAd.html?addId=${product.id}" id="editAd" class="buttons" Edit Ad"</p>
+            <div className='add'>
+                <Advert {...advert} />
+                <div className='userButtons'>
+                    <div className='editAnddeleteButton'>
+                        <Button
+                            id='deleteAdd'
+                            className='buttons'
+                            onClick={handleDelete}
+                        >
+                            Delete Ad
+                        </Button>
                     </div>
                 </div>
             </div>
-        </div>
-        </>*/
-        <div>Detalle del anuncio</div>
-    )
-}
+        </>
+    );
+};
 
-export default AdvertPage
+export default AdvertPage;

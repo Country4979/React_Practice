@@ -1,6 +1,10 @@
 /*Header*/
 @import url('https://fonts.cdnfonts.com/css/ananda-2');
 
+hr {
+  border-color: beige;
+}
+
 img {
     object-fit: cover;
     width: 250px;

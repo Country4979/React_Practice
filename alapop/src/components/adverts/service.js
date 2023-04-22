@@ -3,9 +3,20 @@ import client from '../../api/client';
 const advUrl = '/api/v1/adverts';
 
 export const getLastAdv = () => {
-  return client.get(advUrl);
+    const url = `${advUrl}`;
+    return client.get(url);
 };
 
-export const createNewAdv = (advUrl, credentials) => {
-    return client.post(advUrl, credentials)
+export const getAdvert = (advertId) => {
+    const url = `${advUrl}/${advertId}`;
+    return client.get(url);
+};
+
+export const deleteAdvert = (advertId) => {
+    const url = `${advUrl}/${advertId}`;
+    return client.delete(url)
 }
+
+export const createNewAdv = (advUrl, credentials) => {
+    return client.post(advUrl, credentials);
+};

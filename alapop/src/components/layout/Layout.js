@@ -9,6 +9,7 @@ const Layout = ({children, ...rest }) => {
             <main>
                 {children}
             </main>
+            <hr></hr>
             <footer>Javier Girón López @ 2023 - React Module</footer>
         </div>
     )

@@ -41,7 +41,7 @@ function App({ isInitiallyLogged }) {
               path='/adverts'
               element={<AdvertsPage isLogged={isLogged} />}
             />
-            <Route path='/adverts/:Id' element={<AdvertPage />} />
+            <Route path='/adverts/:id' element={<AdvertPage />} />
             <Route
               path='/adverts/new'
               element={

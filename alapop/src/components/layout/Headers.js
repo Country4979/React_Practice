@@ -1,6 +1,6 @@
 import logo from '../../assets/Alapop.png'
 const Headers = ({title}) => {
-    console.log('Se ha cargado el Header')
+    
     return (
         <header>
         <div className="container">
