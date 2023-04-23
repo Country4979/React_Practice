@@ -40,14 +40,6 @@ const LoginPage = ({ isLogged, onLogin, onLogout }) => {
   const handleClickLogout = async () => {
     await logout();
     onLogout();
-    /*return (
-      <div>
-        <Button onClick={closeModal}>No</Button>
-        <Button onClick={handleClick}>Yes I'm sure</Button>
-      </div>
-      //<Modal isOpen={isOpen} closeModal={closeModal}>
-      //</Modal>
-    );*/
   };
 
   const [checked, handleClickCheckBox] = useChecked(false);

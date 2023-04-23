@@ -19,7 +19,7 @@ const Advert = (advs) => {
             {advs.sale ? (
               <span id='isSale'> vende </span>
             ) : (
-              <span id='isSale'>compra </span>
+              <span id='isSale'> compra </span>
             )}
             este producto por:
           </p>

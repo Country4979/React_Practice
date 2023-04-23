@@ -17,6 +17,13 @@ export const deleteAdvert = (advertId) => {
     return client.delete(url)
 }
 
-export const createNewAdv = (advUrl, credentials) => {
-    return client.post(advUrl, credentials);
+export const createNewAdvert = advert => {
+    const url = advUrl;
+    //console.log(advert)
+    return client.post(url, advert, {});
 };
+
+export const getTagList = () => {
+    const url = `${advUrl}/tags`;
+    return client.get(url)
+}
