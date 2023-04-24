@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../shared/Button';
 import { createNewAdvert, getTagList } from './service';
+import axios from 'axios';
 
 const NewAdvertPage = () => {
     const navigate = useNavigate();
@@ -17,6 +18,7 @@ const NewAdvertPage = () => {
         name: '',
         sale: true,
         tags: [],
+        photo: '',
     });
 
     const handleChangeName = (event) => {
@@ -44,9 +46,8 @@ const NewAdvertPage = () => {
     };
 
     const handleChangePhoto = (event) => {
-        const photo = event.target.files[0];
-        setData({ ...data, photo: photo });
-        console.log(photo);
+        setData({ ...data, photo: event });
+        console.log(event);
     };
 
     useEffect(() => {
@@ -66,7 +67,6 @@ const NewAdvertPage = () => {
                 tags: data.tags,
                 photo: data.photo,
             });
-
             setIsLoading(false);
             navigate(`/adverts/${advert.id}`);
         } catch (error) {
@@ -77,7 +77,9 @@ const NewAdvertPage = () => {
                 return alert('error!!!');
             }
         }
+
     };
+    
 
     const isDisabled = isLoading || name.length < 0 || sale || price.length < 0;
 
@@ -90,7 +92,7 @@ const NewAdvertPage = () => {
                     To sell something, maybe?
                 </h1>
 
-                <form id='createAddForm' onSubmit={handleSubmit}>
+                <form id='createAddForm' onSubmit={handleSubmit} encType='multipart/form-data'>
                     <label htmlFor='addName' className='tittle'>
                         Name:
                     </label>
@@ -113,7 +115,7 @@ const NewAdvertPage = () => {
                         type='file'
                         id='addPhoto'
                         name='addPhoto'
-                        onChange={handleChangePhoto}
+                        onChange={(event) => handleChangePhoto(event.target.files[0])}
                     />
                     <br />
                     <div className='tags'>

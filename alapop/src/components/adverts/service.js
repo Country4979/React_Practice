@@ -14,16 +14,17 @@ export const getAdvert = (advertId) => {
 
 export const deleteAdvert = (advertId) => {
     const url = `${advUrl}/${advertId}`;
-    return client.delete(url)
-}
+    return client.delete(url);
+};
 
-export const createNewAdvert = advert => {
+export const createNewAdvert = (advert) => {
     const url = advUrl;
-    //console.log(advert)
+    const formData = new FormData();
+    console.log(advert)
     return client.post(url, advert, {});
 };
 
 export const getTagList = () => {
     const url = `${advUrl}/tags`;
-    return client.get(url)
-}
+    return client.get(url);
+};

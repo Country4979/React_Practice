@@ -5,8 +5,6 @@ import Button from '../shared/Button';
 import { login, logout } from './service';
 import CheckBox from './Checbox';
 import { useChecked } from './useChecked';
-//import Modal from '../shared/Modal';
-//import { isOpen, closeModal } from '../shared/useModal'
 
 const LoginPage = ({ isLogged, onLogin, onLogout }) => {
   const [credentials, setCredentials] = useState({
