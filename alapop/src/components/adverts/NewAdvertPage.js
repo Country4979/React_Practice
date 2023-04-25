@@ -40,14 +40,20 @@ const NewAdvertPage = () => {
         console.log(price);
     };
 
-    const handleChangeTags = () => {
-        const tags = [document.getElementById('selectedTags').value];
+    const handleChangeTags = (event) => {
+        const tags = event.target.value;
         setData({ ...data, tags: tags });
         console.log(tags.length)
     };
 
     const handleChangePhoto = (event) => {
-        setData({ ...data, photo: event });
+        console.log('Evento foto', event)
+        /*if (event.target.files[0] !== undefined) {
+            setData({ ...data, photo: event });
+        }else {
+            const deafultPhoto = 1;
+            setData({...data, photo: 1})
+        }*/
     };
 
     useEffect(() => {
@@ -66,7 +72,9 @@ const NewAdvertPage = () => {
             datas.append('sale', data.sale);
             datas.append('price', data.price);
             datas.append('tags', data.tags);
-            datas.append('photo', data.photo);
+            if (data.photo.lenght > 0){
+                datas.append('photo', data.photo);
+            }
 
             const advert = await createNewAdvert(datas);
             /*{
@@ -88,8 +96,8 @@ const NewAdvertPage = () => {
         }
     };
 
-    console.log(tags.length)
-    const isDisabled = isLoading || name.length <= 0 || price.length <= 0 || tags.length === 0;
+    console.log(data.tags.length)
+    const isDisabled = isLoading || name.length <= 0 || price.length <= 0 || data.tags.length === 0;
 
     return (
         <>
