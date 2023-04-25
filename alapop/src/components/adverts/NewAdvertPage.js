@@ -22,19 +22,20 @@ const NewAdvertPage = () => {
     });
 
     const handleChangeName = (event) => {
-        const nameCharacter = event.target.value
-        setName(nameCharacter)
+        const nameCharacter = event.target.value;
+        setName(nameCharacter);
         setData({ ...data, name: nameCharacter });
-        console.log(name);
     };
+
     const handleChangeSale = () => {
         const sale = document.getElementById('addSelect').value;
         setData({ ...data, sale: sale });
         console.log(sale);
     };
+
     const handleChangePrice = (event) => {
-        const priceNumber = parseInt(event.target.value)
-        setPrice(priceNumber)
+        const priceNumber = parseInt(event.target.value);
+        setPrice(priceNumber);
         setData({ ...data, price: priceNumber });
         console.log(price);
     };
@@ -47,7 +48,6 @@ const NewAdvertPage = () => {
 
     const handleChangePhoto = (event) => {
         setData({ ...data, photo: event });
-        console.log(event);
     };
 
     useEffect(() => {
@@ -58,15 +58,24 @@ const NewAdvertPage = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        const datas = new FormData();
         try {
             setIsLoading(true);
-            const advert = await createNewAdvert({
+
+            datas.append('name', data.name);
+            datas.append('sale', data.sale);
+            datas.append('price', data.price);
+            datas.append('tags', data.tags);
+            datas.append('photo', data.photo);
+
+            const advert = await createNewAdvert(datas);
+            /*{
                 name: data.name,
                 sale: data.sale,
                 price: data.price,
                 tags: data.tags,
                 photo: data.photo,
-            });
+            });*/
             setIsLoading(false);
             navigate(`/adverts/${advert.id}`);
         } catch (error) {
@@ -77,11 +86,9 @@ const NewAdvertPage = () => {
                 return alert('error!!!');
             }
         }
-
     };
-    
 
-    const isDisabled = isLoading || name.length < 0 || sale || price.length < 0;
+    const isDisabled = isLoading || name.length <= 0 || price.length <= 0 ||;
 
     return (
         <>
@@ -92,7 +99,11 @@ const NewAdvertPage = () => {
                     To sell something, maybe?
                 </h1>
 
-                <form id='createAddForm' onSubmit={handleSubmit} encType='multipart/form-data'>
+                <form
+                    id='createAddForm'
+                    onSubmit={handleSubmit}
+                    encType='multipart/form-data'
+                >
                     <label htmlFor='addName' className='tittle'>
                         Name:
                     </label>
@@ -100,7 +111,7 @@ const NewAdvertPage = () => {
                         type='text'
                         id='addName'
                         name='addName'
-                        placeholder='Product name'
+                        //placeholder='Product name'
                         size='25'
                         value={name}
                         onChange={handleChangeName}
@@ -115,7 +126,9 @@ const NewAdvertPage = () => {
                         type='file'
                         id='addPhoto'
                         name='addPhoto'
-                        onChange={(event) => handleChangePhoto(event.target.files[0])}
+                        onChange={(event) =>
+                            handleChangePhoto(event.target.files[0])
+                        }
                     />
                     <br />
                     <div className='tags'>
@@ -137,6 +150,7 @@ const NewAdvertPage = () => {
                         name='addSelect'
                         id='addSelect'
                         onChange={handleChangeSale}
+                        required
                     >
                         <option value={true}>FOR SALE</option>
                         <option value={false}>FOR PURCHASE</option>
@@ -166,8 +180,8 @@ const NewAdvertPage = () => {
                             id='submit'
                             className='buttons'
                             variant='primary'
-                            disable={isDisabled}
                             onClick={handleSubmit}
+                            disabled={isDisabled}
                         >
                             Create Advert
                         </Button>

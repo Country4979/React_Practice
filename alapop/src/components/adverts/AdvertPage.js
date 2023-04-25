@@ -39,7 +39,6 @@ const AdvertPage = () => {
     //--
 
     useEffect(() => {
-        console.log(params.id);
         getAdvert(params.id)
             .then((advert) => setAdvert(advert))
             .catch((error) => {

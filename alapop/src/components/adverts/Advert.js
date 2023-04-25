@@ -26,7 +26,9 @@ const Advert = (advs) => {
           <h2>{advs.price} €</h2>
         </div>
 
-        <div className='product-img'>{advs.photo}</div>
+        <div className='product-img'>
+          <img className='productPhoto' src={advs.photo} alt='imagen del producto en venta'></img>
+        </div>
 
         <div className='typeTag'>
           <p>Tags: {advs.tags}</p>

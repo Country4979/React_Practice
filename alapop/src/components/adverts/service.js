@@ -19,9 +19,11 @@ export const deleteAdvert = (advertId) => {
 
 export const createNewAdvert = (advert) => {
     const url = advUrl;
-    const formData = new FormData();
+    const config = {
+        headers: { 'Content-type': 'multipart/form-data'}
+    }
     console.log(advert)
-    return client.post(url, advert, {});
+    return client.post(url, advert, config);
 };
 
 export const getTagList = () => {
