@@ -43,7 +43,7 @@ const NewAdvertPage = () => {
     const handleChangeTags = () => {
         const tags = [document.getElementById('selectedTags').value];
         setData({ ...data, tags: tags });
-        console.log(tags);
+        console.log(tags.length)
     };
 
     const handleChangePhoto = (event) => {
@@ -88,7 +88,8 @@ const NewAdvertPage = () => {
         }
     };
 
-    const isDisabled = isLoading || name.length <= 0 || price.length <= 0 ||;
+    console.log(tags.length)
+    const isDisabled = isLoading || name.length <= 0 || price.length <= 0 || tags.length === 0;
 
     return (
         <>
