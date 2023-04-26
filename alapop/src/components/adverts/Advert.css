@@ -3,11 +3,12 @@ img {
 }
 
 .productInfo{
-    margin: 0 auto; 
+    margin: 10px auto; 
     color: var(--color); 
     width: 60%;
-    border: var(--border-color), 2px, solid ;
+    border: var(--border-color) solid;
     border-radius: 25px;
+
 }
 
 /*.spinnerView {

@@ -7,7 +7,6 @@ import Advert from './Advert';
 import { UseModal } from '../modals/UseModal';
 import Modal from '../modals/Modal';
 
-
 const AdvertPage = () => {
     const params = useParams();
     const navigate = useNavigate();
@@ -65,33 +64,46 @@ const AdvertPage = () => {
                 <h3 className='modalH3'>
                     Are you sure you want to delete this ad?
                 </h3>
-                <Button onClick={openModals2}>Yes</Button>
-                <Button onClick={closeModal1}>No</Button>
+                <Button onClick={openModals2} className='buttons deleteButton'>
+                    Yes
+                </Button>
+                <Button
+                    onClick={closeModal1}
+                    className='buttons noDeleteButton'
+                >
+                    No
+                </Button>
             </Modal>
             <Modal name='modal2' isOpen={isOpenModal2} closeModal={closeModal2}>
                 <h2>DELETING ADVERTISEMENT</h2>
                 <h3>Are you REALLY sure you want to delete this ad?</h3>
                 <p>This action will permanently delete your ad!!</p>
-                <Button onClick={handleDelete}>Yes</Button>
-                <Button onClick={closeModal2}>No</Button>
+                <Button onClick={handleDelete} className='buttons deleteButton'>
+                    Yes
+                </Button>
+                <Button
+                    onClick={closeModal2}
+                    className='buttons noDeleteButton'
+                >
+                    No
+                </Button>
             </Modal>
             <Modal name='modal3' isOpen={isOpenModal3} closeModal={closeModal3}>
                 <h2 className='modal-h2'>ADVERTISEMENT DELETED</h2>
                 <h3 className='modal-h3'>(I told you...)</h3>
-                <Button onClick={closeModals3}>Ok</Button>
+                <Button onClick={closeModals3} className='buttons deleteButton'>
+                    Ok
+                </Button>
             </Modal>
-            <Advert {...advert} />
-            <div className='userButtons'>
-                <div className='editAnddeleteButton'>
-                    <Button
-                        id='deleteAdd'
-                        className='buttons'
-                        onClick={openModal1}
-                    >
-                        Delete Ad
-                    </Button>
-                </div>
-            </div>
+            <Advert {...advert} className='product' />
+
+            <Button
+                id='deleteAdd'
+                className='buttons deleteButton'
+                onClick={openModal1}
+            >
+                Delete Ad
+            </Button>
         </>
     );
 };

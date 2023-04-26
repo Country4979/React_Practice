@@ -9,6 +9,7 @@
     display: none;
     justify-content: center;
     align-items: center;
+    color: var(--color)
 }
 
 .modal.is-open {
@@ -45,3 +46,4 @@
 .modalH3 {
  font-weight: bold;   
 }
+
