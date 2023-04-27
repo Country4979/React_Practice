@@ -71,7 +71,7 @@ const NewAdvertPage = () => {
         } catch (error) {
             if (error.status === 401) {
                 openModalErrorLogin();
-                setTimeout(() => navigate('/login'), 3000);
+                setTimeout(() => navigate('/login'), 4000);
                 return (
                     <Modal
                         name='errorLogin'
