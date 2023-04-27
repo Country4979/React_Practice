@@ -7,7 +7,15 @@
   --NavBar-Text-color: rgb(210, 156, 5);
   --NavBar-Active-color: rgb(227, 201, 129);
   --font-base: 'Ananda', 'Ananda Black';
-  ;
+}
+
+ul {
+  list-style: none;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
 }
 
 hr {

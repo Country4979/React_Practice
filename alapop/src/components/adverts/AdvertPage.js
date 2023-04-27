@@ -6,10 +6,12 @@ import { deleteAdvert, getAdvert } from './service';
 import Advert from './Advert';
 import { UseModal } from '../modals/UseModal';
 import Modal from '../modals/Modal';
+import '../shared/loading.css';
 
 const AdvertPage = () => {
     const params = useParams();
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(true);
     const [advert, setAdvert] = useState([]);
     const [error, setError] = useState(null);
 
@@ -39,7 +41,11 @@ const AdvertPage = () => {
 
     useEffect(() => {
         getAdvert(params.id)
-            .then((advert) => setAdvert(advert))
+            .then((advert) => {
+                setIsLoading(true);
+                setAdvert(advert);
+                setIsLoading(false);
+            })
             .catch((error) => {
                 if (error.status === 404) {
                     return navigate('/404');
@@ -59,6 +65,19 @@ const AdvertPage = () => {
 
     return (
         <>
+        {isLoading ? (
+                <div className='loadingPage'>
+                    <div className='loadingInfo'>
+                        <h1>LOADING....</h1>
+                        <div className='spinner' id='spinner'>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+            ) : (
+                <>
             <Modal name='modal1' isOpen={isOpenModal1} closeModal={closeModal1}>
                 <h2 className='modalH2'>DELETING ADVERTISEMENT</h2>
                 <h3 className='modalH3'>
@@ -104,6 +123,8 @@ const AdvertPage = () => {
             >
                 Delete Ad
             </Button>
+            </>
+            )}
         </>
     );
 };

@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../shared/Button';
 import { createNewAdvert, getTagList } from './service';
-import axios from 'axios';
 
 const NewAdvertPage = () => {
     const navigate = useNavigate();
@@ -18,7 +17,6 @@ const NewAdvertPage = () => {
         name: '',
         sale: true,
         tags: [],
-        photo: '',
     });
 
     const handleChangeName = (event) => {
@@ -34,33 +32,19 @@ const NewAdvertPage = () => {
     };
 
     const handleChangePrice = (event) => {
-        const priceNumber = parseInt(event.target.value);
+        const priceNumber = event.target.value;
         setPrice(priceNumber);
         setData({ ...data, price: priceNumber });
-        console.log(price);
     };
 
     const handleChangeTags = (event) => {
         const tags = event.target.value;
         setData({ ...data, tags: tags });
-        console.log(tags.length)
     };
 
     const handleChangePhoto = (event) => {
-        console.log('Evento foto', event)
-        /*if (event.target.files[0] !== undefined) {
-            setData({ ...data, photo: event });
-        }else {
-            const deafultPhoto = 1;
-            setData({...data, photo: 1})
-        }*/
+        setData({ ...data, photo: event });
     };
-
-    useEffect(() => {
-        setIsLoading(true);
-        getTagList().then((tags) => setTagsList(tags));
-        setIsLoading(false);
-    }, []);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -72,18 +56,11 @@ const NewAdvertPage = () => {
             datas.append('sale', data.sale);
             datas.append('price', data.price);
             datas.append('tags', data.tags);
-            if (data.photo.lenght > 0){
+            if (!!data.photo){
                 datas.append('photo', data.photo);
             }
 
             const advert = await createNewAdvert(datas);
-            /*{
-                name: data.name,
-                sale: data.sale,
-                price: data.price,
-                tags: data.tags,
-                photo: data.photo,
-            });*/
             setIsLoading(false);
             navigate(`/adverts/${advert.id}`);
         } catch (error) {
@@ -96,8 +73,18 @@ const NewAdvertPage = () => {
         }
     };
 
-    console.log(data.tags.length)
-    const isDisabled = isLoading || name.length <= 0 || price.length <= 0 || data.tags.length === 0;
+    console.log(data.photo);
+    const isDisabled =
+        isLoading ||
+        name.length <= 0 ||
+        price.length <= 0 ||
+        data.tags.length === 0;
+
+    useEffect(() => {
+        setIsLoading(true);
+        getTagList().then((tags) => setTagsList(tags));
+        setIsLoading(false);
+    }, []);
 
     return (
         <>
@@ -120,7 +107,6 @@ const NewAdvertPage = () => {
                         type='text'
                         id='addName'
                         name='addName'
-                        //placeholder='Product name'
                         size='25'
                         value={name}
                         onChange={handleChangeName}
@@ -171,7 +157,7 @@ const NewAdvertPage = () => {
                     <h2 className='productData'>
                         <input
                             className='inputPrice'
-                            type='tel'
+                            type='number'
                             id='addPrice'
                             name='addPrice'
                             minLength='1'

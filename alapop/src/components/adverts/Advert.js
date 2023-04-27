@@ -14,7 +14,7 @@ const Advert = (advs) => {
     };
 
     return (
-        <div className='productInfo'>
+        <div className='productInfo' id='advertOnly'>
             <div className='productName'>
                 <h1>{advs.name}</h1>
                 <p>Created at: {`${advDate.toUTCString()}`}</p>

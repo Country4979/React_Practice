@@ -1,14 +1,18 @@
 img {
     border-radius: 15px;
+    height: 188px;
 }
 
 .productInfo{
-    margin: 10px auto; 
+    margin: 10px auto;
+    width: 100%; 
     color: var(--color); 
-    width: 60%;
     border: var(--border-color) solid;
     border-radius: 25px;
+}
 
+#advertOnly {
+    width: 50%;
 }
 
 /*.spinnerView {
