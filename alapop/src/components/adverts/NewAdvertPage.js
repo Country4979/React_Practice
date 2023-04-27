@@ -2,10 +2,15 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../shared/Button';
 import { createNewAdvert, getTagList } from './service';
+import { UseModal } from '../modals/UseModal';
+import Modal from '../modals/Modal';
 
 const NewAdvertPage = () => {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
+    const [isOpenModalError, openModalError, closeModalError] = UseModal(false);
+    const [isOpenModalErrorLogin, openModalErrorLogin, closeModalErrorLogin] =
+        UseModal(false);
     const [tagsList, setTagsList] = useState([]);
 
     const [name, setName] = useState('');
@@ -56,7 +61,7 @@ const NewAdvertPage = () => {
             datas.append('sale', data.sale);
             datas.append('price', data.price);
             datas.append('tags', data.tags);
-            if (!!data.photo){
+            if (!!data.photo) {
                 datas.append('photo', data.photo);
             }
 
@@ -65,10 +70,34 @@ const NewAdvertPage = () => {
             navigate(`/adverts/${advert.id}`);
         } catch (error) {
             if (error.status === 401) {
-                navigate('/login');
+                openModalErrorLogin();
+                setTimeout(() => navigate('/login'), 3000);
+                return (
+                    <Modal
+                        name='errorLogin'
+                        isOpen={isOpenModalErrorLogin}
+                        closeModal={closeModalErrorLogin}
+                    >
+                        <h2>You must be logged in to create ads</h2>
+                        <p className='small'>You will be redirected</p>
+                    </Modal>
+                );
             } else {
-                console.log(error);
-                return alert('error!!!');
+                openModalError();
+                return (
+                    <Modal
+                        name='error'
+                        isOpen={isOpenModalError}
+                        closeModal={closeModalError}
+                    >
+                        <h3>
+                            An error occurred while creating the advertisement.
+                        </h3>
+                        <Button onClick={closeModalError}>
+                            Please try again.
+                        </Button>
+                    </Modal>
+                );
             }
         }
     };
@@ -88,109 +117,133 @@ const NewAdvertPage = () => {
 
     return (
         <>
-            <div className='createAddForm'>
-                <h1>
-                    Do you want to buy somthing?
-                    <br />
-                    To sell something, maybe?
-                </h1>
-
-                <form
-                    id='createAddForm'
-                    onSubmit={handleSubmit}
-                    encType='multipart/form-data'
-                >
-                    <label htmlFor='addName' className='tittle'>
-                        Name:
-                    </label>
-                    <input
-                        type='text'
-                        id='addName'
-                        name='addName'
-                        size='25'
-                        value={name}
-                        onChange={handleChangeName}
-                        required
-                    />
-                    <br />
-                    <label htmlFor='addPhoto' className='tittle'>
-                        Photo:
-                    </label>
-                    <input
-                        content-type='multipart/form-data'
-                        type='file'
-                        id='addPhoto'
-                        name='addPhoto'
-                        onChange={(event) =>
-                            handleChangePhoto(event.target.files[0])
-                        }
-                    />
-                    <br />
-                    <div className='tags'>
-                        <label htmlFor='addTag' className='labels'>
-                            Available tags:
-                        </label>
-                        <select id='selectedTags' onChange={handleChangeTags}>
-                            <option value={tagsList[0]}>{tagsList[0]}</option>
-                            <option value={tagsList[1]}>{tagsList[1]}</option>
-                            <option value={tagsList[2]}>{tagsList[2]}</option>
-                            <option value={tagsList[3]}>{tagsList[3]}</option>
-                        </select>
+            {isLoading ? (
+                <div className='loadingPage'>
+                    <div className='loadingInfo'>
+                        <h1>LOADING....</h1>
+                        <div className='spinner' id='spinner'>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
                     </div>
+                </div>
+            ) : (
+                <div className='createAddForm'>
+                    <h1>
+                        Do you want to buy somthing?
+                        <br />
+                        To sell something, maybe?
+                    </h1>
 
-                    <label htmlFor='addSelect' className='tittle'>
-                        This article is :
-                    </label>
-                    <select
-                        name='addSelect'
-                        id='addSelect'
-                        onChange={handleChangeSale}
-                        required
+                    <form
+                        id='createAddForm'
+                        onSubmit={handleSubmit}
+                        encType='multipart/form-data'
                     >
-                        <option value={true}>FOR SALE</option>
-                        <option value={false}>FOR PURCHASE</option>
-                    </select>
-                    <label htmlFor='addPrice' className='tittle'>
-                        por:
-                    </label>
-                    <br />
-                    <h2 className='productData'>
+                        <label htmlFor='addName' className='tittle'>
+                            Name:
+                        </label>
                         <input
-                            className='inputPrice'
-                            type='number'
-                            id='addPrice'
-                            name='addPrice'
-                            minLength='1'
-                            size='5'
-                            placeholder='Price'
-                            onChange={handleChangePrice}
-                            value={price}
+                            type='text'
+                            id='addName'
+                            name='addName'
+                            size='25'
+                            value={name}
+                            onChange={handleChangeName}
                             required
-                        />{' '}
-                        €
-                    </h2>
-                    <div className='buttonsArea'>
-                        <Button
-                            type='submit'
-                            id='submit'
-                            className='buttons'
-                            variant='primary'
-                            onClick={handleSubmit}
-                            disabled={isDisabled}
+                        />
+                        <br />
+                        <label htmlFor='addPhoto' className='tittle'>
+                            Photo:
+                        </label>
+                        <input
+                            content-type='multipart/form-data'
+                            type='file'
+                            id='addPhoto'
+                            name='addPhoto'
+                            onChange={(event) =>
+                                handleChangePhoto(event.target.files[0])
+                            }
+                        />
+                        <br />
+                        <div className='tags'>
+                            <label htmlFor='addTag' className='labels'>
+                                Available tags:
+                            </label>
+                            <select
+                                id='selectedTags'
+                                onChange={handleChangeTags}
+                            >
+                                <option value={tagsList[0]}>
+                                    {tagsList[0]}
+                                </option>
+                                <option value={tagsList[1]}>
+                                    {tagsList[1]}
+                                </option>
+                                <option value={tagsList[2]}>
+                                    {tagsList[2]}
+                                </option>
+                                <option value={tagsList[3]}>
+                                    {tagsList[3]}
+                                </option>
+                            </select>
+                        </div>
+
+                        <label htmlFor='addSelect' className='tittle'>
+                            This article is :
+                        </label>
+                        <select
+                            name='addSelect'
+                            id='addSelect'
+                            onChange={handleChangeSale}
+                            required
                         >
-                            Create Advert
-                        </Button>
-                        <Button
-                            type='reset'
-                            id='resetButton'
-                            className='buttons'
-                            variant='primary'
-                        >
-                            Reset info
-                        </Button>
-                    </div>
-                </form>
-            </div>
+                            <option value={true}>FOR SALE</option>
+                            <option value={false}>FOR PURCHASE</option>
+                        </select>
+                        <label htmlFor='addPrice' className='tittle'>
+                            por:
+                        </label>
+                        <br />
+                        <h2 className='productData'>
+                            <input
+                                className='inputPrice'
+                                type='number'
+                                id='addPrice'
+                                name='addPrice'
+                                minLength='1'
+                                size='5'
+                                placeholder='Price'
+                                onChange={handleChangePrice}
+                                value={price}
+                                required
+                            />{' '}
+                            €
+                        </h2>
+                        <div className='buttonsArea'>
+                            <Button
+                                type='submit'
+                                id='submit'
+                                className='buttons'
+                                variant='primary'
+                                onClick={handleSubmit}
+                                disabled={isDisabled}
+                            >
+                                Create Advert
+                            </Button>
+                            <Button
+                                type='reset'
+                                id='resetButton'
+                                className='buttons'
+                                variant='primary'
+                            >
+                                Reset info
+                            </Button>
+                        </div>
+                    </form>
+                </div>
+            )}
         </>
     );
 };
