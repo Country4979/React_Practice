@@ -15,8 +15,6 @@ img {
     width: 50%;
 }
 
-/*.spinnerView {
-    background-color:  white;
-    display: flex;
-    justify-content: center;
-}*/
+.typeTag p{
+    font-weight: bold;
+}

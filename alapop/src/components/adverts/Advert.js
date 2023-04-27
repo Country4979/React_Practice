@@ -43,7 +43,7 @@ const Advert = (advs) => {
             </div>
 
             <div className='typeTag'>
-                <p>Tags: {advs.tags}</p>
+                <p>Tags: {advs.tags.join(', ').toLocaleUpperCase()}</p>
             </div>
         </div>
     );

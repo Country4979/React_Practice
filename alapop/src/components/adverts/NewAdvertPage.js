@@ -11,6 +11,8 @@ const NewAdvertPage = () => {
     const [isOpenModalError, openModalError, closeModalError] = UseModal(false);
     const [isOpenModalErrorLogin, openModalErrorLogin, closeModalErrorLogin] =
         UseModal(false);
+    const [isOpenModalSuccess, openModalSuccess, closeModalSuccess] =
+        UseModal(false);
     const [tagsList, setTagsList] = useState([]);
 
     const [name, setName] = useState('');
@@ -21,7 +23,7 @@ const NewAdvertPage = () => {
     const [data, setData] = useState({
         name: '',
         sale: true,
-        tags: [],
+        price: '',
     });
 
     const handleChangeName = (event) => {
@@ -43,8 +45,13 @@ const NewAdvertPage = () => {
     };
 
     const handleChangeTags = (event) => {
-        const tags = event.target.value;
-        setData({ ...data, tags: tags });
+        //Adds the selected option to an array
+        const selectedTags = Array.from(
+            event.target.selectedOptions,
+            (option) => option.value
+        );
+
+        setData({ ...data, tags: selectedTags });
     };
 
     const handleChangePhoto = (event) => {
@@ -56,7 +63,7 @@ const NewAdvertPage = () => {
         const datas = new FormData();
         try {
             setIsLoading(true);
-
+            //Add datas to datas State
             datas.append('name', data.name);
             datas.append('sale', data.sale);
             datas.append('price', data.price);
@@ -64,19 +71,24 @@ const NewAdvertPage = () => {
             if (!!data.photo) {
                 datas.append('photo', data.photo);
             }
-
+            //Send object datas to endpoint
             const advert = await createNewAdvert(datas);
             setIsLoading(false);
-            navigate(`/adverts/${advert.id}`);
+            console.log('Éxito')
+            openModalSuccess()
+            setTimeout(() => {
+                navigate(`/adverts/${advert.id}`);
+            }, 3000);
+            
         } catch (error) {
             if (error.status === 401) {
                 openModalErrorLogin();
                 setTimeout(() => navigate('/login'), 4000);
                 return (
                     <Modal
-                        name='errorLogin'
-                        isOpen={isOpenModalErrorLogin}
-                        closeModal={closeModalErrorLogin}
+                    name='errorLogin'
+                    isOpen={isOpenModalErrorLogin}
+                    closeModal={closeModalErrorLogin}
                     >
                         <h2>You must be logged in to create ads</h2>
                         <p className='small'>You will be redirected</p>
@@ -86,9 +98,9 @@ const NewAdvertPage = () => {
                 openModalError();
                 return (
                     <Modal
-                        name='error'
-                        isOpen={isOpenModalError}
-                        closeModal={closeModalError}
+                    name='error'
+                    isOpen={isOpenModalError}
+                    closeModal={closeModalError}
                     >
                         <h3>
                             An error occurred while creating the advertisement.
@@ -99,22 +111,21 @@ const NewAdvertPage = () => {
                     </Modal>
                 );
             }
-        }
+        } 
     };
-
-    console.log(data.photo);
+    
     const isDisabled =
-        isLoading ||
+    isLoading ||
         name.length <= 0 ||
         price.length <= 0 ||
-        data.tags.length === 0;
+        sale === undefined ||
+        !data.tags
 
     useEffect(() => {
         setIsLoading(true);
         getTagList().then((tags) => setTagsList(tags));
         setIsLoading(false);
     }, []);
-
     return (
         <>
             {isLoading ? (
@@ -129,6 +140,14 @@ const NewAdvertPage = () => {
                     </div>
                 </div>
             ) : (
+                <>
+                <Modal
+                    name='success'
+                    isOpen={isOpenModalSuccess}
+                    closeModal={closeModalSuccess}
+                >
+                    <h1>Advertisement successfully created!!</h1>
+                </Modal>
                 <div className='createAddForm'>
                     <h1>
                         Do you want to buy somthing?
@@ -173,21 +192,23 @@ const NewAdvertPage = () => {
                             </label>
                             <select
                                 id='selectedTags'
+                                multiple
+                                size={5}
                                 onChange={handleChangeTags}
                             >
-                                <option value={tagsList[0]}>
-                                    {tagsList[0]}
-                                </option>
-                                <option value={tagsList[1]}>
-                                    {tagsList[1]}
-                                </option>
-                                <option value={tagsList[2]}>
-                                    {tagsList[2]}
-                                </option>
-                                <option value={tagsList[3]}>
-                                    {tagsList[3]}
-                                </option>
+                                <option value=''>Select tags:</option>
+                                {tagsList.map((tag, index) => {
+                                    return (
+                                        <option key={index} value={tag}>
+                                            {tag}
+                                        </option>
+                                    );
+                                })}
                             </select>
+                            <br />
+                            <small>
+                                ~ Keep control to select more than one Tag ~
+                            </small>
                         </div>
 
                         <label htmlFor='addSelect' className='tittle'>
@@ -243,6 +264,7 @@ const NewAdvertPage = () => {
                         </div>
                     </form>
                 </div>
+                </>
             )}
         </>
     );
