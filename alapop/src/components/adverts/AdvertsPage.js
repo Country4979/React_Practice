@@ -1,4 +1,4 @@
-import '../shared/loading.css'
+import '../shared/loading.css';
 import '../shared/spinner.css';
 import './AdvertsPage.css';
 import { useEffect, useState } from 'react';
@@ -26,61 +26,35 @@ const AdvertsPage = (advert) => {
         mobile: false,
         work: false,
     });
-    const [queryprice, setQueryPrice] = useState({
-        lower: '',
-        upper: '',
-    });
-    //const [dataFiltered, setDataFiltered] = useState([]);
-    const [select, setSelect] = useState(false);
+    const [dataFiltered, setDataFiltered] = useState([]);
+    const [querySale, setQuerySale] = useState('');
+    const [maxPrice, setQueryMaxPrice] = useState(Infinity);
+    const [minPrice, setQueryMinPrice] = useState(-Infinity);
 
-    const filteredAdverts = adverts
-        .filter((advert) =>
-            advert.name.toUpperCase().startsWith(query.toLocaleUpperCase())
-        )
-        .filter((advert) => {
-            const other = () => {
-                if (advert.sale === false) {
-                    return false;
-                } else {
-                    return false && true;
-                }
-            };
-            if (advert.sale) {
-                return true;
-            } else {
-                other();
-            }
-        });
-
-    const handleFiltetrByPrice = (event) => {
-        setQueryPrice({
-            ...queryprice,
-            [event.target.name]: event.target.value,
-        });
+    /*FILTER BY SALE --> NO FUNCIONA */
+    const handleChangeSale = (event) => {
+        setQuerySale(event.target.value);
+        console.log(event.target.value);
     };
-    //);
-    /*SELECT FOR SALE*/
 
-    /* CHECKBOX TAGS --> NO ME FUCIONAN
-    const handleCheckBox = (event) => {
-        setSelectedTags({
-            ...selectedTags,
-            [event.target.value]: event.target.checked,
-        });
-        if (event.target.checked) {
-            const resultTags = filteredAdverts.filter(
-                (advert) => advert.tags === event.target.value
-                );
-            setDataFiltered([...dataFiltered, ...resultTags]);
-        } else {
-            const resultTags = dataFiltered.filter(
-                (advert) => advert.tags !== event.target.value
-            );
-            setDataFiltered([...resultTags]);
+    let filteredAdverts = adverts.filter((advert) =>
+        advert.name.toUpperCase().startsWith(query.toLocaleUpperCase())
+    );
+
+    /*FILTER BY PRICE*/
+    if ((minPrice || maxPrice) && Number(minPrice) < Number(maxPrice)) {
+        filteredAdverts = filteredAdverts.filter(
+            (advert) => advert.price >= minPrice && advert.price <= maxPrice
+        );
+    }
+    /* -- */
+    /*FILTER BY SALE --> NO FUNCIONA */
+    /*.filter( advert => {
+        if (querySale === "") {
+          return true;
         }
-    };*/
-
-    //console.log(selectedTags);
+        return advert.sale ? querySale === "true" : querySale === "false";
+      })*/
 
     useEffect(() => {
         try {
@@ -91,6 +65,7 @@ const AdvertsPage = (advert) => {
             });
         } catch (error) {}
     }, [isLoading]);
+
     return (
         <>
             {isLoading ? (
@@ -110,7 +85,8 @@ const AdvertsPage = (advert) => {
                         <div>
                             <h1>Searching Area</h1>
                         </div>
-                        <div className='lefttSide'>
+                        {/*FILTER BY NAME*/}
+                        <div className='filters'>
                             <label htmlFor='filterByName'>By name: {''}</label>
                             <input
                                 name='filterByName'
@@ -122,16 +98,39 @@ const AdvertsPage = (advert) => {
                                 }
                             />
                         </div>
-                        <div className='rightSide'>
+                        <div className='filters'>
+                            <label>To sale:</label>
+                            <input
+                                id='radioSell'
+                                className='form-input'
+                                type='radio'
+                                name='radioSaleFilter'
+                                value='true'
+                            />
+                            <label>To buy:</label>
+                            <input
+                                id='radioBuy'
+                                className='form-input'
+                                type='radio'
+                                name='radioSaleFilter'
+                                value='false'
+                            />
+                            <label>All:</label>
+                            <input
+                                id='buySell'
+                                className='form-input'
+                                type='radio'
+                                name='radioSaleFilter'
+                                value='null'
+                            />
+                        </div>
+                        <div className='filters'>
                             <label htmlFor='filterByTag'>Tags : {''}</label>
                             <input
                                 type='checkbox'
                                 id='lifestyle'
                                 name='tags'
                                 value='lifestyle'
-                                onChange={(event) =>
-                                    setSelectedTags(event.target.value)
-                                }
                             />
                             <label htmlFor='lifestyle'>Lifestyle</label>
                             <input
@@ -139,9 +138,6 @@ const AdvertsPage = (advert) => {
                                 id='motor'
                                 name='tags'
                                 value='motor'
-                                onChange={(event) =>
-                                    setSelectedTags(event.target.value)
-                                }
                             />
                             <label htmlFor='motor'>Motor</label>
                             <input
@@ -149,9 +145,6 @@ const AdvertsPage = (advert) => {
                                 id='mobile'
                                 name='tags'
                                 value='mobile'
-                                onChange={(event) =>
-                                    setSelectedTags(event.target.value)
-                                }
                             />
                             <label htmlFor='mobile'>Mobile</label>
                             <input
@@ -159,47 +152,49 @@ const AdvertsPage = (advert) => {
                                 id='work'
                                 name='tags'
                                 value='work'
-                                onChange={(event) =>
-                                    setSelectedTags(event.target.value)
-                                }
                             />
                             <label htmlFor='work'>Work</label>
-
+                        </div>
+                        <div className='filters'>
+                            <label htmlFor='filterBySale'>For Sale?</label>
                             <select
                                 name='filterBySale'
-                                value={select}
-                                onChange={(event) =>
-                                    setSelect(event.target.value)
-                                }
+                                value='selected'
+                                onChange={handleChangeSale}
                             >
-                                <option value={true}>for Sale</option>
-                                <option value={false}>buying</option>
+                                <option value={true}>Sale</option>
+                                <option value={false}>Buying</option>
                                 <option value={null}>All</option>
                             </select>
-
+                        </div>
+                        {/*FILTER BY PRICE*/}
+                        <div className='filters'>
                             <label htmlFor='filterByPrice'>
                                 By price: {''}
                             </label>
                             <input
-                                name='lower'
-                                type='text'
+                                name='minPrice'
+                                type='number'
                                 placeholder='Min'
-                                style={{ borderWidth: 1 }}
-                                value={queryprice}
-                                onChange={handleFiltetrByPrice}
+                                value={minPrice}
+                                onChange={(event) =>
+                                    setQueryMinPrice(event.target.value)
+                                }
+                                className='numberInputs'
                             />
                             <input
-                                name='upper'
-                                type='text'
+                                name='maxPrice'
+                                type='number'
                                 placeholder='Max'
-                                style={{ borderWidth: 1 }}
-                                value={queryprice}
-                                onChange={handleFiltetrByPrice}
+                                value={maxPrice}
+                                onChange={(event) =>
+                                    setQueryMaxPrice(event.target.value)
+                                }
+                                className='numberInputs'
                             />
                         </div>
                     </div>
                     {!!adverts.length && filteredAdverts.length ? (
-                        //(
                         <>
                             <ul>
                                 {filteredAdverts.map((advert) => (

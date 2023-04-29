@@ -1,6 +1,8 @@
-body {
-  margin-left: 0;
+h1{
+  color: var(--color);
+  font-family: var(--font-base);
 }
+
 .productInfo {
   width: 100%;
 }
@@ -12,6 +14,15 @@ body {
   width: 90%;
   
 }
+
+.numberInputs {
+  color: var(--color);
+  width: 100px;
+  margin-right: 5px;
+  border-radius: 5px;
+  border: 1px solid var(--border-color)
+}
+
 .add img {
   object-fit: cover;
   width: fit-content;
@@ -20,7 +31,14 @@ body {
 }
 
 label {
+  color: var(--color);
   margin-left: 2px;
   margin-right: 10px;
-  text-align: left;
+  text-align: right;
+  font-weight: bold;
+}
+
+::placeholder {
+  color: var(--color);
+  text-align: center;
 }
