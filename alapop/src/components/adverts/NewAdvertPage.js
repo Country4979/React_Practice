@@ -4,6 +4,7 @@ import Button from '../shared/Button';
 import { createNewAdvert, getTagList } from './service';
 import { UseModal } from '../modals/UseModal';
 import Modal from '../modals/Modal';
+import './NewAdvertPage.css';
 
 const NewAdvertPage = () => {
     const navigate = useNavigate();
@@ -145,13 +146,14 @@ const NewAdvertPage = () => {
                             Please try again.
                         </Button>
                     </Modal>
-                    <div className='createAddForm'>
+                    <div>
                         <h1>
                             Do you want to buy somthing?
                             <br />
                             To sell something, maybe?
                         </h1>
-
+                    </div>
+                    <div className='createAddForm'>
                         <form
                             id='createAddForm'
                             onSubmit={handleSubmit}
@@ -221,7 +223,7 @@ const NewAdvertPage = () => {
                                 <option value={false}>FOR PURCHASE</option>
                             </select>
                             <label htmlFor='addPrice' className='tittle'>
-                                por:
+                                by:
                             </label>
                             <br />
                             <h2 className='productData'>
@@ -243,8 +245,8 @@ const NewAdvertPage = () => {
                                 <Button
                                     type='submit'
                                     id='submit'
-                                    className='buttons'
                                     variant='primary'
+                                    className='noDeleteButton'
                                     onClick={handleSubmit}
                                     disabled={isDisabled}
                                 >
@@ -253,8 +255,8 @@ const NewAdvertPage = () => {
                                 <Button
                                     type='reset'
                                     id='resetButton'
-                                    className='buttons'
                                     variant='primary'
+                                    className='noDeleteButton'
                                 >
                                     Reset info
                                 </Button>
