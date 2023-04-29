@@ -9,6 +9,10 @@ const Navbar = ({ isLogged, onLogout }) => {
         UseModal(false);
     const [isOpenModalLogin, openModaleLogin, closeModaleLogin] =
         UseModal(false);
+    const [isOpenModalLoginNew, openModaleLoginNew, closeModaleLoginNew] =
+        UseModal(false);
+    const [isOpenModalLoginHome, openModaleLoginHome, closeModaleLoginHome] =
+        UseModal(false);
 
     const handleClick = () => {
         openModaleLogout();
@@ -43,9 +47,9 @@ const Navbar = ({ isLogged, onLogout }) => {
             </Modal>
 
             <Modal
-                className='modalLogin'
-                isOpen={isOpenModalLogin}
-                closeModal={closeModaleLogin}
+                className='modalLoginHome'
+                isOpen={isOpenModalLoginHome}
+                closeModal={closeModaleLoginHome}
             >
                 <p>
                     You are not logged in now. You need to{' '}
@@ -54,7 +58,7 @@ const Navbar = ({ isLogged, onLogout }) => {
                         as={Button}
                         className='NavBarButton'
                         variant='primary'
-                        disabled={!buttonDisabbled}
+                        onClick={closeModaleLoginHome}
                     >
                         login
                     </NavLink>{' '}
@@ -62,17 +66,37 @@ const Navbar = ({ isLogged, onLogout }) => {
                 </p>
             </Modal>
 
+            <Modal
+                className='modalLoginNew'
+                isOpen={isOpenModalLoginNew}
+                closeModal={closeModaleLoginNew}
+            >
+                <p>
+                    You are not logged yet. You need to{' '}
+                    <NavLink
+                        to='/login'
+                        as={Button}
+                        className='NavBarButton'
+                        variant='primary'
+                        onClick={closeModaleLoginNew}
+                    >
+                        login
+                    </NavLink>{' '}
+                    to create ads and access other features of the App.
+                </p>
+            </Modal>
+
             <div className='navbar'>
                 <div id='logged'></div>
-                <NavLink
-                    to='adverts/new'
-                    as={Button}
+                <Button
+                    name='toNewAdv'
                     className='NavBarButton'
                     variant='primary'
+                    onClick={openModaleLoginNew}
                     disabled={!buttonDisabbled}
                 >
                     New Adv.
-                </NavLink>
+                </Button>
 
                 <Button
                     className='NavBarButton'
@@ -82,14 +106,16 @@ const Navbar = ({ isLogged, onLogout }) => {
                 >
                     Logout
                 </Button>
-                <NavLink
-                    to='/adverts'
-                    as={Button}
+
+                <Button
+                    name='toHome'
                     className='NavBarButton'
                     variant='primary'
+                    onClick={openModaleLoginHome}
+                    disabled={!buttonDisabbled}
                 >
                     Home
-                </NavLink>
+                </Button>
             </div>
         </>
     );
