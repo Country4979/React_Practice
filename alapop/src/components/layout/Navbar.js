@@ -1,5 +1,5 @@
 import Button from '../shared/Button';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { UseModal } from '../modals/UseModal';
 import Modal from '../modals/Modal';
 import { logout } from '../auth/service';
@@ -13,6 +13,23 @@ const Navbar = ({ isLogged, onLogout }) => {
         UseModal(false);
     const [isOpenModalLoginHome, openModaleLoginHome, closeModaleLoginHome] =
         UseModal(false);
+
+    const navigate = useNavigate();
+    
+    const openModalLoginNew = () => {
+        if (!isLogged) {
+            openModaleLoginNew();
+        } else {
+            navigate('adverts/new');
+        }
+    };
+    const openModalLoginHome = () => {
+        if (!isLogged) {
+            openModaleLoginHome();
+        } else {
+            navigate('adverts');
+        }
+    };
 
     const handleClick = () => {
         openModaleLogout();
@@ -92,7 +109,7 @@ const Navbar = ({ isLogged, onLogout }) => {
                     name='toNewAdv'
                     className='NavBarButton'
                     variant='primary'
-                    onClick={openModaleLoginNew}
+                    onClick={openModalLoginNew}
                     disabled={!buttonDisabbled}
                 >
                     New Adv.
@@ -111,7 +128,7 @@ const Navbar = ({ isLogged, onLogout }) => {
                     name='toHome'
                     className='NavBarButton'
                     variant='primary'
-                    onClick={openModaleLoginHome}
+                    onClick={openModalLoginHome}
                     disabled={!buttonDisabbled}
                 >
                     Home

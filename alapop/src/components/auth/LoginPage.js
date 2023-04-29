@@ -17,7 +17,6 @@ const LoginPage = ({ isLogged, onLogin, onLogout }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    console.log(credentials);
 
     await login(credentials, checked);
 
