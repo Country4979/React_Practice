@@ -14,8 +14,7 @@ const Button = styled.button`
       props.variant === 'primary' ? primaryColor : 'rgb(241, 85, 28)'}
   color: ${(props) =>
       props.variant === 'primary' ? primaryColor : 'rgb(241, 85, 28)'};
-  font-size: ${(props) =>
-      props.variant === 'primary' ? 'inherit' : 'v1.5rem'};
+  font-size: 1.5rem;
   display: inline-flex;
   align-items: center;
   font-family: 'Ananda', 'Ananda Black';

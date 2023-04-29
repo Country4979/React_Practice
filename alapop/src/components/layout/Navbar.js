@@ -3,7 +3,7 @@ import { NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { UseModal } from '../modals/UseModal';
 import Modal from '../modals/Modal';
 import { logout } from '../auth/service';
-import '../shared/vars.css'
+import '../shared/vars.css';
 import './Navbar.css';
 
 const Navbar = ({ isLogged, onLogout }) => {
@@ -61,8 +61,10 @@ const Navbar = ({ isLogged, onLogout }) => {
                 closeModal={closeModaleLogout}
             >
                 <h1>Are you sure you want to logout?</h1>
-                <Button onClick={handleClickLogout}>Yes, I want</Button>
-                <Button onClick={closeModaleLogout}>No</Button>
+                <Button onClick={handleClickLogout} className='deleteButton'>Yes, I want</Button>
+                <Button onClick={closeModaleLogout} variant='primary' className='noDeleteButton' style={{'borderWidth': '1px'}}>
+                    No
+                </Button>
             </Modal>
 
             <Modal
