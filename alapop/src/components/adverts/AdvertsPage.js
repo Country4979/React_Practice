@@ -7,14 +7,24 @@ import Button from '../shared/Button';
 import { Link } from 'react-router-dom';
 import Advert from './Advert';
 
-const EmptyList = () => (
+const EmptyList = ({dataFiltered}) => {
+    console.log(dataFiltered)
+    return(
+    dataFiltered ? 
     <div style={{ textAlign: 'center' }}>
         <p>Sorry, no adverts yet.</p>
-        <Button as={Link} to='/adverts/new' variant='primary'>
+        <Button as={Link} to='/adverts/new'>
             Be the first to publish one...
         </Button>
     </div>
-);
+    :
+    <div style={{ textAlign: 'center' }}>
+    <p>Sorry, your search returned no results</p>
+    <Button as={Link} to='/'>
+        Go Back...
+    </Button>
+</div>
+)};
 
 const AdvertsPage = (advert) => {
     const [isLoading, setIsLoading] = useState(true);
@@ -58,6 +68,7 @@ const AdvertsPage = (advert) => {
 
     useEffect(() => {
         try {
+            filteredAdverts === 0 ? setDataFiltered(true) : setDataFiltered(false)
             getLastAdv().then((adverts) => {
                 setIsLoading(true);
                 setAdverts(adverts);
@@ -207,7 +218,7 @@ const AdvertsPage = (advert) => {
                             </ul>
                         </>
                     ) : (
-                        <EmptyList />
+                        <EmptyList dataFiltered={dataFiltered}/>
                     )}
                 </div>
             )}
