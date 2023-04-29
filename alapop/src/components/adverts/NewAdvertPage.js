@@ -27,6 +27,10 @@ const NewAdvertPage = () => {
         price: '',
     });
 
+    const handleReset = () => {
+        setPrice('')
+        setName('')
+    }
     const handleChangeName = (event) => {
         const nameCharacter = event.target.value;
         setName(nameCharacter);
@@ -257,6 +261,7 @@ const NewAdvertPage = () => {
                                     id='resetButton'
                                     variant='primary'
                                     className='noDeleteButton'
+                                    onClick={handleReset}
                                 >
                                     Reset info
                                 </Button>
