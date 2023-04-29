@@ -3,7 +3,8 @@ import { NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { UseModal } from '../modals/UseModal';
 import Modal from '../modals/Modal';
 import { logout } from '../auth/service';
-import './Navbar.css'
+import '../shared/vars.css'
+import './Navbar.css';
 
 const Navbar = ({ isLogged, onLogout }) => {
     const [isOpenModalLogout, openModaleLogout, closeModaleLogout] =
@@ -16,7 +17,7 @@ const Navbar = ({ isLogged, onLogout }) => {
         UseModal(false);
 
     const navigate = useNavigate();
-    
+
     const openModalLoginNew = () => {
         if (!isLogged) {
             openModaleLoginNew();
@@ -108,7 +109,7 @@ const Navbar = ({ isLogged, onLogout }) => {
                 <div id='logged'></div>
                 <Button
                     name='toNewAdv'
-                    className='NavBarButton'
+                    className='NavBarButton noDeleteButton'
                     variant='primary'
                     onClick={openModalLoginNew}
                     disabled={!buttonDisabbled}
@@ -117,7 +118,7 @@ const Navbar = ({ isLogged, onLogout }) => {
                 </Button>
 
                 <Button
-                    className='NavBarButton'
+                    className='NavBarButton noDeleteButton'
                     variant='primary'
                     disabled={!buttonDisabbled}
                     onClick={handleClick}
@@ -127,7 +128,7 @@ const Navbar = ({ isLogged, onLogout }) => {
 
                 <Button
                     name='toHome'
-                    className='NavBarButton'
+                    className='NavBarButton noDeleteButton'
                     variant='primary'
                     onClick={openModalLoginHome}
                     disabled={!buttonDisabbled}

@@ -1,5 +1,5 @@
-import LoginPage from './components/auth/LoginPage';
 import './App.css';
+import LoginPage from './components/auth/LoginPage';
 import NewAdvertPage from './components/adverts/NewAdvertPage';
 import AdvertsPage from './components/adverts/AdvertsPage';
 import AdvertPage from './components/adverts/AdvertPage';

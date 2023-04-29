@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 import './Buttons.css';
 
-const accentColor = 'var(--color)';
-const primaryBorder = '0px';
+const primaryColor = 'rgb(210, 156, 5)';
 
 const Button = styled.button`
   cursor: pointer;
@@ -10,13 +9,13 @@ const Button = styled.button`
   margin: 0;
   padding: 0;
   background-color: inherit;
-  border-width: ${(props) =>
-      props.variant === 'primary' ? primaryBorder : '2px'};
+  border-width: ${(props) => (props.variant === 'primary' ? '0px' : '2px')};
   border-color: ${(props) =>
-      props.variant === 'primary' ? accentColor : 'rgb(241, 85, 28)'}
+      props.variant === 'primary' ? primaryColor : 'rgb(241, 85, 28)'}
   color: ${(props) =>
-      props.variant === 'primary' ? accentColor : 'rgb(241, 85, 28)'};
-  
+      props.variant === 'primary' ? primaryColor : 'rgb(241, 85, 28)'};
+  font-size: ${(props) =>
+      props.variant === 'primary' ? 'inherit' : 'v1.5rem'};
   display: inline-flex;
   align-items: center;
   font-family: 'Ananda', 'Ananda Black';
