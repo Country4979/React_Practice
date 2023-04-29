@@ -1,8 +1,7 @@
-header {
+header h1{
     font-family: var(--font-base);
-    font-size: 3em;
-    /*color: var(--color);*/
-    color: red;
+    font-size: 6rem;
+    color: var(--color);
 }
 .headerContainer {
     display: flex;
