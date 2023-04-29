@@ -1,0 +1,21 @@
+header {
+    font-family: var(--font-base);
+    font-size: 3em;
+    /*color: var(--color);*/
+    color: red;
+}
+.headerContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-gap: 25px;
+}
+.headerText {
+    grid-column: 1 / 4;
+    grid-row: 1;
+}
+.headerImg {
+    background-color: azure;
+    grid-column: 5 / 6;
+    grid-row: 1;
+}

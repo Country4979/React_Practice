@@ -22,32 +22,6 @@ hr {
   border-color: var(--border-color);
 }
 
-img {
-    object-fit: cover;
-    width: 250px;
-}
-
-header {
-    font-family: var(--font-base);
-    font-size: 3em;
-}
-
-.container {
-    display: flex;
-    justify-content: center;
-}
-
-.headerText {
-    grid-column: 1 / 4;
-    grid-row: 1;
-}
-
-.headerImg {
-    background-color: azure;
-    grid-column: 5 / 6;
-    grid-row: 1;
-}
-
 /*App por defecto*/
 a {
   text-decoration: none;

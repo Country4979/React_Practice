@@ -3,6 +3,7 @@ import { NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { UseModal } from '../modals/UseModal';
 import Modal from '../modals/Modal';
 import { logout } from '../auth/service';
+import './Navbar.css'
 
 const Navbar = ({ isLogged, onLogout }) => {
     const [isOpenModalLogout, openModaleLogout, closeModaleLogout] =
