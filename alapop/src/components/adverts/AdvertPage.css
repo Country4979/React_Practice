@@ -9,7 +9,7 @@ h1 {
     margin-bottom: 5px;
 }
 
-h2 {
+.product h2 {
     display: inline-block;
     margin-top:15px;
     margin-left: auto;

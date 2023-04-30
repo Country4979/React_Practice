@@ -27,6 +27,7 @@
     overflow-y: auto;
     background-color: #fff;
     align-items: center;
+    padding-bottom: 15px;
 }
 
 .modal-close {
@@ -41,9 +42,14 @@
 
 .modalH2 {
     padding-top: 1.2rem;
+    color: var(--color);
+    border: none;
+    margin-bottom: 10px;
+    
 }
 
 .modalH3 {
+    margin-top: 0;
  font-weight: bold;   
 }
 

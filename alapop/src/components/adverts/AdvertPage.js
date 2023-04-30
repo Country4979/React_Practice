@@ -109,8 +109,8 @@ const AdvertPage = () => {
                         isOpen={isOpenModal2}
                         closeModal={closeModal2}
                     >
-                        <h2>DELETING ADVERTISEMENT</h2>
-                        <h3>Are you REALLY sure you want to delete this ad?</h3>
+                        <h2 className='modalH2'>DELETING ADVERTISEMENT</h2>
+                        <h3 className='modalH3'>Are you REALLY sure you want to delete this ad?</h3>
                         <p>This action will permanently delete your ad!!</p>
                         <Button
                             onClick={handleDelete}
@@ -130,11 +130,11 @@ const AdvertPage = () => {
                         isOpen={isOpenModal3}
                         closeModal={closeModal3}
                     >
-                        <h2 className='modal-h2'>ADVERTISEMENT DELETED</h2>
-                        <h3 className='modal-h3'>(I told you...)</h3>
+                        <h2 className='modalH2'>ADVERTISEMENT DELETED</h2>
+                        <h3 className='modalH3'>(I told you...)</h3>
                         <Button
                             onClick={closeModals3}
-                            className='buttons deleteButton'
+                            className='buttons noDeleteButton'
                         >
                             Ok
                         </Button>
