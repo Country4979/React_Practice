@@ -30,3 +30,9 @@ h2 {
     color: darkred;
     font-size: 3rem;
 }
+
+.loadingInfo h1{
+    font-size: 1rem;
+    margin-bottom: 25px;
+}
+

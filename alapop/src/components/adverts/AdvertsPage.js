@@ -68,16 +68,22 @@ const AdvertsPage = (advert) => {
 
     useEffect(() => {
         try {
-            filteredAdverts === 0
-                ? setDataFiltered(true)
-                : setDataFiltered(false);
             getLastAdv().then((adverts) => {
+                filteredAdverts === 0
+                    ? setDataFiltered(true)
+                    : setDataFiltered(false);
                 setIsLoading(true);
                 setAdverts(adverts);
-                setIsLoading(false);
+                setIsLoading(false)
             });
-        } catch (error) {}
-    }, [isLoading]);
+        } catch (error) {
+            setDataFiltered(true)
+            
+        }
+        finally {
+            setIsLoading(false);
+        }
+    }, []);
 
     return (
         <>

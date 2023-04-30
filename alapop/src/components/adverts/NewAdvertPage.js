@@ -63,7 +63,6 @@ const NewAdvertPage = ({ isLogged }) => {
     const handleChangePhoto = (event) => {
         setData({ ...data, photo: event });
     };
-
     const handleSubmit = async (event) => {
         event.preventDefault();
         const datas = new FormData();
@@ -116,7 +115,7 @@ const NewAdvertPage = ({ isLogged }) => {
                     {isLoading ? (
                         <div className='loadingPage'>
                             <div className='loadingInfo'>
-                                <h1>LOADING....</h1>
+                                <h1 className='loading h1'>LOADING....</h1>
                                 <div className='spinner' id='spinner'>
                                     <div></div>
                                     <div></div>
@@ -148,11 +147,15 @@ const NewAdvertPage = ({ isLogged }) => {
                                 isOpen={isOpenModalError}
                                 closeModal={closeModalError}
                             >
-                                <h3 className='modalH3'>
+                                <h3 className='modalErrorH3'>
                                     An error occurred while creating the
                                     advertisement.
                                 </h3>
-                                <Button onClick={closeModalError}>
+                                <Button
+                                    className='noDeleteButton'
+                                    variant='primary'
+                                    onClick={closeModalError}
+                                >
                                     Please try again.
                                 </Button>
                             </Modal>
