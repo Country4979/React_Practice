@@ -20,10 +20,12 @@ const LoginPage = ({ isLogged, onLogin, onLogout }) => {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [errorMs, setErrorMs] = useState('');
+    const [success, setSuccess] = useState(false);
     const resetError = () => {
         setError(null);
     };
     const [isOpenModalError, openModalError, closeModalError] = UseModal(false);
+    const [isOpenModalSuccess, openModalSuccess, closeModalSuccess] = UseModal(false);
     const location = useLocation();
 
     const handleSubmit = async (event) => {
@@ -33,11 +35,15 @@ const LoginPage = ({ isLogged, onLogin, onLogout }) => {
         setIsLoading(true);
         try {
             await login(credentials, checked);
+            setIsLoading(false);
             //Logged in:
             onLogin();
+            setSuccess(true)
+            console.log(success)
+            openModalSuccess()
             // Redirect to pathname
             const to = location.state?.from?.pathname || '/';
-            navigate(to);
+            setTimeout(() => navigate(to), 3000);
         } catch (error) {
             setError(error);
 
@@ -70,6 +76,20 @@ const LoginPage = ({ isLogged, onLogin, onLogout }) => {
 
     return (
         <>
+            <Modal
+                name='success'
+                isOpen={isOpenModalSuccess}
+                closeModal={closeModalSuccess}
+            >
+                <h3 className='modalErrorH3'>Successful login!!</h3>
+                <Button
+                    className='noDeleteButton'
+                    variant='primary'
+                    onClick={closeModalSuccess}
+                >
+                    OK
+                </Button>
+            </Modal>
             <Modal
                 name='error'
                 isOpen={isOpenModalError}
