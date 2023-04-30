@@ -42,7 +42,7 @@ const LoginPage = ({ isLogged, onLogin, onLogout }) => {
 
     const [checked, handleClickCheckBox] = useChecked(false);
 
-    const buttonDisabled = !credentials.email || !credentials.password;
+    const buttonDisabled = !credentials.email || !credentials.password || isLogged;
     const logoutButtonDisabbled = isLogged;
 
     return (
