@@ -1,7 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import Button from '../shared/Button';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { deleteAdvert, getAdvert } from './service';
 import Advert from './Advert';
 import { UseModal } from '../modals/UseModal';
@@ -13,13 +12,11 @@ const AdvertPage = () => {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(true);
     const [advert, setAdvert] = useState([]);
-    const [error, setError] = useState(null);
 
     //--MODAL WINDOWS
     const [isOpenModal1, openModal1, closeModal1] = UseModal(false);
     const [isOpenModal2, openModal2, closeModal2] = UseModal(false);
     const [isOpenModal3, openModal3, closeModal3] = UseModal(false);
-    const [isOpenModalError, openModalError, closeModalError] = UseModal(false);
 
     const openModals2 = () => {
         if (isOpenModal1) {
@@ -38,7 +35,16 @@ const AdvertPage = () => {
     const closeModals3 = () => {
         navigate('/adverts');
     };
-    //--
+    //----
+
+    const handleDelete = () => {
+        deleteAdvert(params.id).then(() => {
+            openModals3();
+            setTimeout(() => {
+                navigate('/adverts');
+            }, 4000);
+        });
+    };
 
     useEffect(() => {
         getAdvert(params.id)
@@ -53,15 +59,6 @@ const AdvertPage = () => {
             })
             .finally(() => setIsLoading(false));
     }, [params.id, navigate]);
-
-    const handleDelete = () => {
-        deleteAdvert(params.id).then(() => {
-            openModals3();
-            setTimeout(() => {
-                navigate('/adverts');
-            }, 5000);
-        });
-    };
 
     return (
         <>
@@ -137,14 +134,15 @@ const AdvertPage = () => {
                             Ok
                         </Button>
                     </Modal>
-                    <Advert {...advert} className='product' />
-
+                    <div className='productContainer'>
+                        <Advert {...advert} className='product' />
+                    </div>
                     <Button
                         id='deleteAdd'
                         className='buttons deleteButton'
                         onClick={openModal1}
                     >
-                        Delete Ad
+                        Delete Adv
                     </Button>
                 </>
             )}
