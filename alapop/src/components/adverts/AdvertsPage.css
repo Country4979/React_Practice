@@ -72,3 +72,8 @@ label {
 .listContainer p{
   color: var(--color)
 }
+.contaienrTittle H1{
+  margin: 10px auto;
+  font-size: 5vh;
+  font-family: var(--font-base);
+}

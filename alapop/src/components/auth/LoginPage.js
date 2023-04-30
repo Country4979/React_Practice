@@ -82,13 +82,7 @@ const LoginPage = ({ isLogged, onLogin, onLogout }) => {
                 closeModal={closeModalSuccess}
             >
                 <h3 className='modalErrorH3'>Successful login!!</h3>
-                <Button
-                    className='noDeleteButton'
-                    variant='primary'
-                    onClick={closeModalSuccess}
-                >
-                    OK
-                </Button>
+                <small>You will be re-directed.</small>
             </Modal>
             <Modal
                 name='error'

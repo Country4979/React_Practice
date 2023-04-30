@@ -5,10 +5,13 @@ import Modal from '../modals/Modal';
 import { logout } from '../auth/service';
 import '../shared/vars.css';
 import './Navbar.css';
+import { useState } from 'react';
 
 const Navbar = ({ isLogged, onLogout }) => {
+    const [isLoading, setIsLoading] = useState(true);
     const [isOpenModalLogout, openModaleLogout, closeModaleLogout] =
         UseModal(false);
+    const [isOpenModalError, openModalError, closeModalError] = UseModal(false);
     const [
         isOpenModalLogoutSuccess,
         openModalLogoutSuccess,
@@ -50,7 +53,8 @@ const Navbar = ({ isLogged, onLogout }) => {
                 onLogout();
             }, 3000);
         } catch (error) {
-            console.log(error);
+            setIsLoading(true);
+            openModalError();
         }
     };
 
@@ -58,6 +62,22 @@ const Navbar = ({ isLogged, onLogout }) => {
 
     return (
         <>
+            <Modal
+                name='error'
+                isOpen={isOpenModalError}
+                closeModal={closeModalError}
+            >
+                <h3 className='modalErrorH3'>
+                    An error occurred while logging out
+                </h3>
+                <Button
+                    className='noDeleteButton'
+                    variant='primary'
+                    onClick={closeModalError}
+                >
+                    Try again later...
+                </Button>
+            </Modal>
             <Modal
                 className='modalLogout'
                 isOpen={isOpenModalLogout}

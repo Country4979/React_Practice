@@ -155,7 +155,7 @@ const AdvertsPage = (advert) => {
                                 />
                             </div>
 
-                            {/*FILTER BY TAGS*/}
+                            {/*FILTER BY TAGS
                             <div className='filters'>
                                 <label htmlFor='filterByTag'>Tags : {''}</label>
                                 <input
@@ -186,9 +186,9 @@ const AdvertsPage = (advert) => {
                                     value='work'
                                 />
                                 <label htmlFor='work'>Work</label>
-                            </div>
+                                </div>*/}
 
-                            {/*FILTER BY SALE*/}
+                            {/*FILTER BY SALE
                             <div className='filters'>
                                 <label htmlFor='filterBySale'>For Sale?</label>
                                 <select
@@ -201,7 +201,7 @@ const AdvertsPage = (advert) => {
                                     <option value={false}>Buying</option>
                                     <option value={null}>All</option>
                                 </select>
-                            </div>
+                            </div>*/}
 
                             {/*FILTER BY PRICE*/}
                             <div className='filters'>
@@ -233,6 +233,9 @@ const AdvertsPage = (advert) => {
                         {!!adverts.length && filteredAdverts.length ? (
                             <>
                                 <div className='listContainer'>
+                                    <div className='contaienrTittle'>
+                                        <h1>ADVERTISEMENTS AVIABLE</h1>
+                                    </div>
                                     <ul>
                                         {filteredAdverts
                                             .sort(
