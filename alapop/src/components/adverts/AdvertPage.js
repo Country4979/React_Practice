@@ -42,7 +42,7 @@ const AdvertPage = () => {
 
     useEffect(() => {
         getAdvert(params.id)
-            .then((advert) => {
+        .then((advert) => {
                 setIsLoading(true);
                 setAdvert(advert);
             })
@@ -53,6 +53,7 @@ const AdvertPage = () => {
                     return navigate('/404');
                 }
                 setError(error);
+                
             })
             .finally(() => setIsLoading(false));
     }, [params.id, navigate]);

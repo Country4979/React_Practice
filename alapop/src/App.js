@@ -38,7 +38,11 @@ function App({ isInitiallyLogged }) {
                     />
                     <Route
                         path='/adverts'
-                        element={<AdvertsPage isLogged={isLogged} />}
+                        element={
+                            <RequireAuth isLogged={isLogged}>
+                                <AdvertsPage isLogged={isLogged} />
+                            </RequireAuth>
+                        }
                     />
                     <Route path='/adverts/:id' element={<AdvertPage />} />
                     <Route
