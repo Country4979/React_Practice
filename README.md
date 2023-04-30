@@ -1,4 +1,17 @@
 # Practice of the React Fundamentals module, by Javier Girón López.
+# Prerequisites
+
+Backend: nodepop-api
+
+## Installation
+git clone https://github.com/davidjj76/nodepop-api
+cd nodepop-api
+npm install
+Add nodepop-api to the .gitignore file
+
+## Running
+npm start
+Swagger --> http://localhost:3001/swagger
 
 # Getting Started with Create React App
 
