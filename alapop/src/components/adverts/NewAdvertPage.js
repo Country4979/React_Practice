@@ -79,7 +79,6 @@ const NewAdvertPage = ({ isLogged }) => {
             //Send object datas to endpoint
             const advert = await createNewAdvert(datas);
             setIsLoading(false);
-            console.log('Éxito');
             openModalSuccess();
             setTimeout(() => {
                 navigate(`/adverts/${advert.id}`);

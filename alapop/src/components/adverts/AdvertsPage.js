@@ -4,11 +4,12 @@ import './AdvertsPage.css';
 import { useEffect, useState } from 'react';
 import { getLastAdv } from './service';
 import Button from '../shared/Button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Advert from './Advert';
+import { UseModal } from '../modals/UseModal';
+import Modal from '../modals/Modal';
 
 const EmptyList = ({ dataFiltered }) => {
-    console.log(dataFiltered);
     return dataFiltered ? (
         <div style={{ textAlign: 'center' }}>
             <p>Sorry, no adverts yet.</p>
@@ -27,6 +28,7 @@ const EmptyList = ({ dataFiltered }) => {
 };
 
 const AdvertsPage = (advert) => {
+    const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(true);
     const [adverts, setAdverts] = useState([]);
     const [query, setQuery] = useState('');
@@ -40,6 +42,10 @@ const AdvertsPage = (advert) => {
     const [querySale, setQuerySale] = useState('');
     const [maxPrice, setQueryMaxPrice] = useState(Infinity);
     const [minPrice, setQueryMinPrice] = useState(-Infinity);
+
+    const [isOpenModalError, openModalError, closeModalError] = UseModal(false);
+    const [isOpenModalErrorLogin, openModalErrorLogin, closeModalErrorLogin] =
+        UseModal(false);
 
     /*FILTER BY SALE --> NO FUNCIONA */
     const handleChangeSale = (event) => {
@@ -67,26 +73,54 @@ const AdvertsPage = (advert) => {
       })*/
 
     useEffect(() => {
-        try {
-            getLastAdv().then((adverts) => {
+        setIsLoading(true);
+        getLastAdv()
+            .then((adverts) => {
                 filteredAdverts === 0
                     ? setDataFiltered(true)
                     : setDataFiltered(false);
-                setIsLoading(true);
                 setAdverts(adverts);
-                setIsLoading(false)
-            });
-        } catch (error) {
-            setDataFiltered(true)
-            
-        }
-        finally {
-            setIsLoading(false);
-        }
+                //setIsLoading(false);
+            })
+            .catch((error) => {
+                if (error.status === 401) {
+                    setIsLoading(false);
+                    openModalErrorLogin();
+                    setTimeout(() => navigate('/login'), 4000);
+                } else {
+                    setIsLoading(false);
+                    openModalError();
+                }
+            })
+            .finally(() => setIsLoading(false));
     }, []);
 
     return (
         <>
+            <Modal
+                name='errorLogin'
+                isOpen={isOpenModalErrorLogin}
+                closeModal={closeModalErrorLogin}
+            >
+                <h2 className='modalH2'>You must be logged in to create ads</h2>
+                <p className='small'>You will be redirected</p>
+            </Modal>
+            <Modal
+                name='error'
+                isOpen={isOpenModalError}
+                closeModal={closeModalError}
+            >
+                <h3 className='modalErrorH3'>
+                    An error occurred loading advertisements.
+                </h3>
+                <Button
+                    className='noDeleteButton'
+                    variant='primary'
+                    onClick={closeModalError}
+                >
+                    Please try again later...
+                </Button>
+            </Modal>
             <div className='container'>
                 {isLoading ? (
                     <div className='loadingPage'>
