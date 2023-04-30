@@ -9,8 +9,11 @@ import './Navbar.css';
 const Navbar = ({ isLogged, onLogout }) => {
     const [isOpenModalLogout, openModaleLogout, closeModaleLogout] =
         UseModal(false);
-    const [isOpenModalLogin, openModaleLogin, closeModaleLogin] =
-        UseModal(false);
+    const [
+        isOpenModalLogoutSuccess,
+        openModalLogoutSuccess,
+        closeModalLogoutSuccess,
+    ] = UseModal(false);
     const [isOpenModalLoginNew, openModaleLoginNew, closeModaleLoginNew] =
         UseModal(false);
     const [isOpenModalLoginHome, openModaleLoginHome, closeModaleLoginHome] =
@@ -41,9 +44,9 @@ const Navbar = ({ isLogged, onLogout }) => {
         closeModaleLogout();
         try {
             await logout();
-            openModaleLogin();
+            openModalLogoutSuccess();
             setTimeout(() => {
-                closeModaleLogin();
+                closeModalLogoutSuccess();
                 onLogout();
             }, 3000);
         } catch (error) {
@@ -73,6 +76,21 @@ const Navbar = ({ isLogged, onLogout }) => {
                     style={{ borderWidth: '1px' }}
                 >
                     No
+                </Button>
+            </Modal>
+            <Modal
+                name='success'
+                isOpen={isOpenModalLogoutSuccess}
+                closeModal={closeModalLogoutSuccess}
+            >
+                <h3 className='modalErrorH3'>Successful logout!!</h3>
+                <p>See you soon!</p>
+                <Button
+                    className='noDeleteButton'
+                    variant='primary'
+                    onClick={closeModalLogoutSuccess}
+                >
+                    OK
                 </Button>
             </Modal>
 
@@ -127,7 +145,6 @@ const Navbar = ({ isLogged, onLogout }) => {
                     className='NavLinkButton'
                     to='/login'
                     as={Button}
-                    className='NavBarButton'
                     variant='primary'
                     onClick={closeModaleLoginHome}
                 >
