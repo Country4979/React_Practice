@@ -60,9 +60,18 @@ const Navbar = ({ isLogged, onLogout }) => {
                 isOpen={isOpenModalLogout}
                 closeModal={closeModaleLogout}
             >
-                <h1>Are you sure you want to logout?</h1>
-                <Button onClick={handleClickLogout} className='deleteButton'>Yes, I want</Button>
-                <Button onClick={closeModaleLogout} variant='primary' className='noDeleteButton' style={{'borderWidth': '1px'}}>
+                <h1 className='modalLogout'>
+                    Are you sure you want to logout?
+                </h1>
+                <Button onClick={handleClickLogout} className='deleteButton'>
+                    Yes, I want
+                </Button>
+                <Button
+                    onClick={closeModaleLogout}
+                    variant='primary'
+                    className='noDeleteButton'
+                    style={{ borderWidth: '1px' }}
+                >
                     No
                 </Button>
             </Modal>
@@ -86,15 +95,14 @@ const Navbar = ({ isLogged, onLogout }) => {
                     to view ads and access other features of the App.
                 </p>
                 <NavLink
-                className='NavLinkButton'
-                        to='/login'
-                        as={Button}
-
-                        variant='primary'
-                        onClick={closeModaleLoginHome}
-                    >
-                        LOGIN
-                    </NavLink>{' '}
+                    className='NavLinkButton'
+                    to='/login'
+                    as={Button}
+                    variant='primary'
+                    onClick={closeModaleLoginHome}
+                >
+                    LOGIN
+                </NavLink>{' '}
             </Modal>
 
             <Modal
@@ -115,15 +123,16 @@ const Navbar = ({ isLogged, onLogout }) => {
                     </NavLink>{' '}
                     to create ads and access other features of the App.
                 </p>
-                <NavLink className='NavLinkButton'
-                        to='/login'
-                        as={Button}
-                        className='NavBarButton'
-                        variant='primary'
-                        onClick={closeModaleLoginHome}
-                    >
-                        LOGIN
-                    </NavLink>{' '}
+                <NavLink
+                    className='NavLinkButton'
+                    to='/login'
+                    as={Button}
+                    className='NavBarButton'
+                    variant='primary'
+                    onClick={closeModaleLoginHome}
+                >
+                    LOGIN
+                </NavLink>{' '}
             </Modal>
 
             <div className='navbar'>

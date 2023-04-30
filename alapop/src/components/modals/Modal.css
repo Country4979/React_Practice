@@ -40,6 +40,12 @@
     cursor: pointer;
 }
 
+.modalLogout{
+    font-size: 3rem;
+    padding-bottom: 5px;
+    font-family: var(--font-base);
+}
+
 .modalH2 {
     padding-top: 1.2rem;
     color: var(--color);
