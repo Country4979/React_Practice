@@ -81,128 +81,136 @@ const AdvertsPage = (advert) => {
 
     return (
         <>
-            {isLoading ? (
-                <div className='loadingPage'>
-                    <div className='loadingInfo'>
-                        <h1>LOADING....</h1>
-                        <div className='spinner' id='spinner'>
-                            <div></div>
-                            <div></div>
-                            <div></div>
+            <div className='container'>
+                {isLoading ? (
+                    <div className='loadingPage'>
+                        <div className='loadingInfo'>
+                            <h1>LOADING....</h1>
+                            <div className='spinner' id='spinner'>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            ) : (
-                <div>
-                    <div className='filterArea'>
-                        <div>
-                            <h1>Searching Area</h1>
-                        </div>
-                        {/*FILTER BY NAME*/}
-                        <div className='filters'>
-                            <label htmlFor='filterByName'>By name: {''}</label>
-                            <input
-                                name='filterByName'
-                                type='text'
-                                style={{ borderWidth: 1 }}
-                                value={query}
-                                onChange={(event) =>
-                                    setQuery(event.target.value)
-                                }
-                            />
-                        </div>
+                ) : (
+                    <div>
+                        <div className='filterArea'>
+                            <div>
+                                <h1>Searching Area</h1>
+                            </div>
+                            {/*FILTER BY NAME*/}
+                            <div className='filters'>
+                                <label htmlFor='filterByName'>
+                                    By name: {''}
+                                </label>
+                                <input
+                                    name='filterByName'
+                                    type='text'
+                                    style={{ borderWidth: 1 }}
+                                    value={query}
+                                    onChange={(event) =>
+                                        setQuery(event.target.value)
+                                    }
+                                />
+                            </div>
 
-                        {/*FILTER BY TAGS*/}
-                        <div className='filters'>
-                            <label htmlFor='filterByTag'>Tags : {''}</label>
-                            <input
-                                type='checkbox'
-                                id='lifestyle'
-                                name='tags'
-                                value='lifestyle'
-                            />
-                            <label htmlFor='lifestyle'>Lifestyle</label>
-                            <input
-                                type='checkbox'
-                                id='motor'
-                                name='tags'
-                                value='motor'
-                            />
-                            <label htmlFor='motor'>Motor</label>
-                            <input
-                                type='checkbox'
-                                id='mobile'
-                                name='tags'
-                                value='mobile'
-                            />
-                            <label htmlFor='mobile'>Mobile</label>
-                            <input
-                                type='checkbox'
-                                id='work'
-                                name='tags'
-                                value='work'
-                            />
-                            <label htmlFor='work'>Work</label>
-                        </div>
+                            {/*FILTER BY TAGS*/}
+                            <div className='filters'>
+                                <label htmlFor='filterByTag'>Tags : {''}</label>
+                                <input
+                                    type='checkbox'
+                                    id='lifestyle'
+                                    name='tags'
+                                    value='lifestyle'
+                                />
+                                <label htmlFor='lifestyle'>Lifestyle</label>
+                                <input
+                                    type='checkbox'
+                                    id='motor'
+                                    name='tags'
+                                    value='motor'
+                                />
+                                <label htmlFor='motor'>Motor</label>
+                                <input
+                                    type='checkbox'
+                                    id='mobile'
+                                    name='tags'
+                                    value='mobile'
+                                />
+                                <label htmlFor='mobile'>Mobile</label>
+                                <input
+                                    type='checkbox'
+                                    id='work'
+                                    name='tags'
+                                    value='work'
+                                />
+                                <label htmlFor='work'>Work</label>
+                            </div>
 
-                        {/*FILTER BY SALE*/}
-                        <div className='filters'>
-                            <label htmlFor='filterBySale'>For Sale?</label>
-                            <select
-                                name='filterBySale'
-                                value='selected'
-                                onChange={handleChangeSale}
-                            >
-                                <option value={true}>Sale</option>
-                                <option value={false}>Buying</option>
-                                <option value={null}>All</option>
-                            </select>
-                        </div>
+                            {/*FILTER BY SALE*/}
+                            <div className='filters'>
+                                <label htmlFor='filterBySale'>For Sale?</label>
+                                <select
+                                    name='filterBySale'
+                                    value='selected'
+                                    onChange={handleChangeSale}
+                                >
+                                    <option value={true}>Sale</option>
+                                    <option value={false}>Buying</option>
+                                    <option value={null}>All</option>
+                                </select>
+                            </div>
 
-                        {/*FILTER BY PRICE*/}
-                        <div className='filters'>
-                            <label htmlFor='filterByPrice'>
-                                By price: {''}
-                            </label>
-                            <input
-                                name='minPrice'
-                                type='number'
-                                placeholder='Min'
-                                value={minPrice}
-                                onChange={(event) =>
-                                    setQueryMinPrice(event.target.value)
-                                }
-                                className='numberInputs'
-                            />
-                            <input
-                                name='maxPrice'
-                                type='number'
-                                placeholder='Max'
-                                value={maxPrice}
-                                onChange={(event) =>
-                                    setQueryMaxPrice(event.target.value)
-                                }
-                                className='numberInputs'
-                            />
+                            {/*FILTER BY PRICE*/}
+                            <div className='filters'>
+                                <label htmlFor='filterByPrice'>
+                                    By price: {''}
+                                </label>
+                                <input
+                                    name='minPrice'
+                                    type='number'
+                                    placeholder='Min'
+                                    value={minPrice}
+                                    onChange={(event) =>
+                                        setQueryMinPrice(event.target.value)
+                                    }
+                                    className='numberInputs'
+                                />
+                                <input
+                                    name='maxPrice'
+                                    type='number'
+                                    placeholder='Max'
+                                    value={maxPrice}
+                                    onChange={(event) =>
+                                        setQueryMaxPrice(event.target.value)
+                                    }
+                                    className='numberInputs'
+                                />
+                            </div>
                         </div>
+                        {!!adverts.length && filteredAdverts.length ? (
+                            <>
+                                <div className='listContainer'>
+                                    <ul>
+                                        {filteredAdverts.map((advert) => (
+                                            <li key={advert.id}>
+                                                <Link
+                                                    to={`/adverts/${advert.id}`}
+                                                >
+                                                    {<Advert {...advert} />}
+                                                </Link>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </>
+                        ) : (
+                            <EmptyList dataFiltered={dataFiltered} />
+                        )}
                     </div>
-                    {!!adverts.length && filteredAdverts.length ? (
-                        <>
-                            <ul>
-                                {filteredAdverts.map((advert) => (
-                                    <li key={advert.id} className='productInfo'>
-                                        <Link to={`/adverts/${advert.id}`}>
-                                            {<Advert {...advert} />}
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </>
-                    ) : (
-                        <EmptyList dataFiltered={dataFiltered} />
-                    )}
-                </div>
-            )}
+                )}
+            </div>
         </>
     );
 };
