@@ -28,9 +28,9 @@ const NewAdvertPage = () => {
     });
 
     const handleReset = () => {
-        setPrice('')
-        setName('')
-    }
+        setPrice('');
+        setName('');
+    };
     const handleChangeName = (event) => {
         const nameCharacter = event.target.value;
         setName(nameCharacter);
@@ -135,7 +135,9 @@ const NewAdvertPage = () => {
                         isOpen={isOpenModalErrorLogin}
                         closeModal={closeModalErrorLogin}
                     >
-                        <h2>You must be logged in to create ads</h2>
+                        <h2 className='modalH2'>
+                            You must be logged in to create ads
+                        </h2>
                         <p className='small'>You will be redirected</p>
                     </Modal>
                     <Modal
@@ -143,7 +145,7 @@ const NewAdvertPage = () => {
                         isOpen={isOpenModalError}
                         closeModal={closeModalError}
                     >
-                        <h3>
+                        <h3 className='modalH3'>
                             An error occurred while creating the advertisement.
                         </h3>
                         <Button onClick={closeModalError}>

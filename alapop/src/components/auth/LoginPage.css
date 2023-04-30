@@ -109,3 +109,7 @@ label{
   a:active {
       color: rgb(227, 201, 129);
   }
+
+  #textLogin {
+    font-size: 5vh;
+  }

@@ -194,15 +194,20 @@ const AdvertsPage = (advert) => {
                             <>
                                 <div className='listContainer'>
                                     <ul>
-                                        {filteredAdverts.map((advert) => (
-                                            <li key={advert.id}>
-                                                <Link
-                                                    to={`/adverts/${advert.id}`}
-                                                >
-                                                    {<Advert {...advert} />}
-                                                </Link>
-                                            </li>
-                                        ))}
+                                        {filteredAdverts
+                                            .sort(
+                                                (a, b) =>
+                                                    a.createdAt > b.createdAt
+                                            )
+                                            .map((advert) => (
+                                                <li key={advert.id}>
+                                                    <Link
+                                                        to={`/adverts/${advert.id}`}
+                                                    >
+                                                        {<Advert {...advert} />}
+                                                    </Link>
+                                                </li>
+                                            ))}
                                     </ul>
                                 </div>
                             </>
