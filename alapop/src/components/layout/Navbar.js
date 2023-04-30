@@ -85,6 +85,16 @@ const Navbar = ({ isLogged, onLogout }) => {
                     </NavLink>{' '}
                     to view ads and access other features of the App.
                 </p>
+                <NavLink
+                className='NavLinkButton'
+                        to='/login'
+                        as={Button}
+
+                        variant='primary'
+                        onClick={closeModaleLoginHome}
+                    >
+                        LOGIN
+                    </NavLink>{' '}
             </Modal>
 
             <Modal
@@ -105,6 +115,15 @@ const Navbar = ({ isLogged, onLogout }) => {
                     </NavLink>{' '}
                     to create ads and access other features of the App.
                 </p>
+                <NavLink className='NavLinkButton'
+                        to='/login'
+                        as={Button}
+                        className='NavBarButton'
+                        variant='primary'
+                        onClick={closeModaleLoginHome}
+                    >
+                        LOGIN
+                    </NavLink>{' '}
             </Modal>
 
             <div className='navbar'>
@@ -133,7 +152,7 @@ const Navbar = ({ isLogged, onLogout }) => {
                     className='NavBarButton noDeleteButton'
                     variant='primary'
                     onClick={openModalLoginHome}
-                    disabled={!buttonDisabbled}
+                    //disabled={!buttonDisabbled}
                 >
                     Home
                 </Button>

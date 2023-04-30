@@ -18,8 +18,7 @@ function App({ isInitiallyLogged }) {
 
     const handleLogout = () => {
         setIsLogged(false);
-        console.log('click en logout');
-        console.log(isLogged);
+        
     };
 
     return (
@@ -45,13 +44,12 @@ function App({ isInitiallyLogged }) {
                         }
                     />
                     <Route
-                    path='/adverts/:id'
-                    element={
-                        <RequireAuth isLogged={isLogged}>
-
-                            <AdvertPage />
-                        </RequireAuth>
-                    }
+                        path='/adverts/:id'
+                        element={
+                            <RequireAuth isLogged={isLogged}>
+                                <AdvertPage isLogged={isLogged} />
+                            </RequireAuth>
+                        }
                     />
                     <Route
                         path='/adverts/new'
