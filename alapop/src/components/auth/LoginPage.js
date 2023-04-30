@@ -19,19 +19,19 @@ const LoginPage = ({ isLogged, onLogin, onLogout }) => {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [errorMs, setErrorMs] = useState('An error occurred while logging in')
+    const [errorMs, setErrorMs] = useState('');
     const resetError = () => {
         setError(null);
     };
     const [isOpenModalError, openModalError, closeModalError] = UseModal(false);
     const location = useLocation();
 
-    
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+        resetError();
+        setIsLoading(true);
         try {
-            resetError();
-            setIsLoading(true);
             await login(credentials, checked);
             //Logged in:
             onLogin();
@@ -39,20 +39,16 @@ const LoginPage = ({ isLogged, onLogin, onLogout }) => {
             const to = location.state?.from?.pathname || '/';
             navigate(to);
         } catch (error) {
-            console.log(error.response.status)
             setError(error);
-            if(error.response.status === 401) {
-                console.log('error 401')
-                setErrorMs('Incorrect username or password')   
-                openModalError()
-            }
+
+            error.message === 'Network Error'
+                ? setErrorMs('An error occurred while logging in')
+                : setErrorMs('Incorrect username or password');
             openModalError();
-            
-        }finally {
+        } finally {
             setIsLoading(false);
         }
     };
-    console.log(errorMs)
 
     const handleChange = (event) => {
         setCredentials({
@@ -78,11 +74,8 @@ const LoginPage = ({ isLogged, onLogin, onLogout }) => {
                 name='error'
                 isOpen={isOpenModalError}
                 closeModal={closeModalError}
-                
             >
-                <h3 className='modalErrorH3'>
-                    {errorMs}.
-                </h3>
+                <h3 className='modalErrorH3'>{errorMs}.</h3>
                 <Button
                     className='noDeleteButton'
                     variant='primary'
