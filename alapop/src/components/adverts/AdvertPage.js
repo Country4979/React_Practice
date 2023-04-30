@@ -42,18 +42,14 @@ const AdvertPage = () => {
 
     useEffect(() => {
         getAdvert(params.id)
-        .then((advert) => {
+            .then((advert) => {
                 setIsLoading(true);
                 setAdvert(advert);
             })
             .catch((error) => {
-                if (error.status === 404) {
-                    openModalError();
-                    setTimeout(() => navigate('/404'), 4000);
+                if (error.response.data.statusCode === 404) {
                     return navigate('/404');
                 }
-                setError(error);
-                
             })
             .finally(() => setIsLoading(false));
     }, [params.id, navigate]);
@@ -110,7 +106,9 @@ const AdvertPage = () => {
                         closeModal={closeModal2}
                     >
                         <h2 className='modalH2'>DELETING ADVERTISEMENT</h2>
-                        <h3 className='modalH3'>Are you REALLY sure you want to delete this ad?</h3>
+                        <h3 className='modalH3'>
+                            Are you REALLY sure you want to delete this ad?
+                        </h3>
                         <p>This action will permanently delete your ad!!</p>
                         <Button
                             onClick={handleDelete}
