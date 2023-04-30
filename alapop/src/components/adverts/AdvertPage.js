@@ -6,6 +6,7 @@ import Advert from './Advert';
 import { UseModal } from '../modals/UseModal';
 import Modal from '../modals/Modal';
 import '../shared/loading.css';
+import './AdvertPage.css'
 
 const AdvertPage = () => {
     const params = useParams();

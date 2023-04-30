@@ -7,24 +7,24 @@ import Button from '../shared/Button';
 import { Link } from 'react-router-dom';
 import Advert from './Advert';
 
-const EmptyList = ({dataFiltered}) => {
-    console.log(dataFiltered)
-    return(
-    dataFiltered ? 
-    <div style={{ textAlign: 'center' }}>
-        <p>Sorry, no adverts yet.</p>
-        <Button as={Link} to='/adverts/new'>
-            Be the first to publish one...
-        </Button>
-    </div>
-    :
-    <div style={{ textAlign: 'center' }}>
-    <p>Sorry, your search returned no results</p>
-    <Button as={Link} to='/'>
-        Go Back...
-    </Button>
-</div>
-)};
+const EmptyList = ({ dataFiltered }) => {
+    console.log(dataFiltered);
+    return dataFiltered ? (
+        <div style={{ textAlign: 'center' }}>
+            <p>Sorry, no adverts yet.</p>
+            <Button as={Link} to='/adverts/new'>
+                Be the first to publish one...
+            </Button>
+        </div>
+    ) : (
+        <div style={{ textAlign: 'center' }}>
+            <p>Sorry, your search returned no results</p>
+            <Button as={Link} to='/'>
+                Go Back...
+            </Button>
+        </div>
+    );
+};
 
 const AdvertsPage = (advert) => {
     const [isLoading, setIsLoading] = useState(true);
@@ -68,7 +68,9 @@ const AdvertsPage = (advert) => {
 
     useEffect(() => {
         try {
-            filteredAdverts === 0 ? setDataFiltered(true) : setDataFiltered(false)
+            filteredAdverts === 0
+                ? setDataFiltered(true)
+                : setDataFiltered(false);
             getLastAdv().then((adverts) => {
                 setIsLoading(true);
                 setAdverts(adverts);
@@ -109,32 +111,8 @@ const AdvertsPage = (advert) => {
                                 }
                             />
                         </div>
-                        <div className='filters'>
-                            <label>To sale:</label>
-                            <input
-                                id='radioSell'
-                                className='form-input'
-                                type='radio'
-                                name='radioSaleFilter'
-                                value='true'
-                            />
-                            <label>To buy:</label>
-                            <input
-                                id='radioBuy'
-                                className='form-input'
-                                type='radio'
-                                name='radioSaleFilter'
-                                value='false'
-                            />
-                            <label>All:</label>
-                            <input
-                                id='buySell'
-                                className='form-input'
-                                type='radio'
-                                name='radioSaleFilter'
-                                value='null'
-                            />
-                        </div>
+
+                        {/*FILTER BY TAGS*/}
                         <div className='filters'>
                             <label htmlFor='filterByTag'>Tags : {''}</label>
                             <input
@@ -166,6 +144,8 @@ const AdvertsPage = (advert) => {
                             />
                             <label htmlFor='work'>Work</label>
                         </div>
+
+                        {/*FILTER BY SALE*/}
                         <div className='filters'>
                             <label htmlFor='filterBySale'>For Sale?</label>
                             <select
@@ -178,6 +158,7 @@ const AdvertsPage = (advert) => {
                                 <option value={null}>All</option>
                             </select>
                         </div>
+
                         {/*FILTER BY PRICE*/}
                         <div className='filters'>
                             <label htmlFor='filterByPrice'>
@@ -218,7 +199,7 @@ const AdvertsPage = (advert) => {
                             </ul>
                         </>
                     ) : (
-                        <EmptyList dataFiltered={dataFiltered}/>
+                        <EmptyList dataFiltered={dataFiltered} />
                     )}
                 </div>
             )}

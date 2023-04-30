@@ -1,5 +1,4 @@
 import React from 'react';
-import './Advert.css';
 import defaultPhoto from '../../assets/Sin_imagen.jpg';
 
 const Advert = (advs) => {

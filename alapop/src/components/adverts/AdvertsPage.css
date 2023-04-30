@@ -3,8 +3,8 @@ h1{
   font-family: var(--font-base);
 }
 
-.productInfo {
-  width: 100%;
+.container {
+  margin:0;
 }
 
 .filterArea {
@@ -12,8 +12,12 @@ h1{
   border: 2px solid var(--border-color);
   border-radius: 25px;
   width: 90%;
-  
 }
+
+.productInfo {
+  width: 100%;
+}
+
 
 .numberInputs {
   color: var(--color);
