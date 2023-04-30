@@ -17,15 +17,15 @@ const LoginPage = ({ isLogged, onLogin, onLogout }) => {
     const location = useLocation();
 
     const handleSubmit = async (event) => {
-        event.preventDefault();
+        
+           await login(credentials, checked);
+    
+           onLogin();
+    
+           const to = location.state?.from?.pathname || '/';
+           navigate(to);
+        
 
-        await login(credentials, checked);
-
-        onLogin();
-
-        // Redirect to pathname --> NOT WORKING
-        const to = location.state?.from?.pathname || '/';
-        navigate(to);
     };
 
     const handleChange = (event) => {
@@ -42,7 +42,8 @@ const LoginPage = ({ isLogged, onLogin, onLogout }) => {
 
     const [checked, handleClickCheckBox] = useChecked(false);
 
-    const buttonDisabled = !credentials.email || !credentials.password || isLogged;
+    const buttonDisabled =
+        !credentials.email || !credentials.password || isLogged;
     const logoutButtonDisabbled = isLogged;
 
     return (
@@ -53,7 +54,7 @@ const LoginPage = ({ isLogged, onLogin, onLogout }) => {
                     <p>
                         Please{' '}
                         <Button
-                        className='noDeleteButton'
+                            className='noDeleteButton'
                             variant='primary'
                             onClick={handleClickLogout}
                             disabled={!logoutButtonDisabbled}

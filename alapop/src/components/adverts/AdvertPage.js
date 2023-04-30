@@ -6,18 +6,22 @@ import Advert from './Advert';
 import { UseModal } from '../modals/UseModal';
 import Modal from '../modals/Modal';
 import '../shared/loading.css';
-import './AdvertPage.css'
+import './AdvertPage.css';
 
-const AdvertPage = () => {
+const AdvertPage = ( {isLogged} ) => {
     const params = useParams();
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(true);
     const [advert, setAdvert] = useState([]);
+    const [errors, setErrors] = useState(null);
 
     //--MODAL WINDOWS
     const [isOpenModal1, openModal1, closeModal1] = UseModal(false);
     const [isOpenModal2, openModal2, closeModal2] = UseModal(false);
     const [isOpenModal3, openModal3, closeModal3] = UseModal(false);
+    const [isOpenModalError, openModalError, closeModalError] = UseModal(false);
+
+    UseModal(false);
 
     const openModals2 = () => {
         if (isOpenModal1) {
@@ -46,7 +50,7 @@ const AdvertPage = () => {
             }, 4000);
         });
     };
-
+    let isDisabled = isLogged
     useEffect(() => {
         getAdvert(params.id)
             .then((advert) => {
@@ -54,8 +58,16 @@ const AdvertPage = () => {
                 setAdvert(advert);
             })
             .catch((error) => {
-                if (error.response.data.statusCode === 404) {
+                setErrors(true)
+                if (error){
+                    setIsLoading(false);
+                    openModalError();
+                }
+                /*else if (error && error.response.data.statusCode === 404) {
                     return navigate('/404');
+                }*/ else {
+                    setIsLoading(false);
+                    openModalError();
                 }
             })
             .finally(() => setIsLoading(false));
@@ -76,6 +88,22 @@ const AdvertPage = () => {
                 </div>
             ) : (
                 <>
+                    <Modal
+                        name='error'
+                        isOpen={isOpenModalError}
+                        closeModal={closeModalError}
+                    >
+                        <h3 className='modalErrorH3'>
+                            An error occurred loading advertisement.
+                        </h3>
+                        <Button
+                            className='noDeleteButton'
+                            variant='primary'
+                            onClick={closeModalError}
+                        >
+                            Please try again later...
+                        </Button>
+                    </Modal>
                     <Modal
                         name='modal1'
                         isOpen={isOpenModal1}
@@ -138,10 +166,12 @@ const AdvertPage = () => {
                     <div className='productContainer'>
                         <Advert {...advert} className='product' />
                     </div>
+
                     <Button
                         id='deleteAdd'
                         className='buttons deleteButton'
                         onClick={openModal1}
+                        disabled={errors}
                     >
                         Delete Adv
                     </Button>

@@ -80,7 +80,7 @@ const AdvertsPage = (advert) => {
                     ? setDataFiltered(true)
                     : setDataFiltered(false);
                 setAdverts(adverts);
-                //setIsLoading(false);
+                
             })
             .catch((error) => {
                 if (error.status === 401) {
