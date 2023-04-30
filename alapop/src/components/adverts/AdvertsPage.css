@@ -15,6 +15,11 @@ h2 {
   width: 90%;
 }
 
+.filters label {
+  margin-left: 2px;
+  text-align: left;
+}
+
 label {
   color: var(--color);
   margin-left: 2px;

@@ -22,13 +22,13 @@ const Advert = (advs) => {
             <div className='productData'>
                 <p>
                     {' '}
-                    Se
+                    Is
                     {advs.sale ? (
-                        <span id='isSale'> vende </span>
+                        <span id='isSale'> for sale </span>
                     ) : (
-                        <span id='isSale'> compra </span>
+                        <span id='isSale'> purchased </span>
                     )}
-                    este producto por:
+                    this product by:
                 </p>
                 <h2>{advs.price} €</h2>
             </div>

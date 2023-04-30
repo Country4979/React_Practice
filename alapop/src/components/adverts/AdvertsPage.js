@@ -156,6 +156,7 @@ const AdvertsPage = (advert) => {
                                     value='selected'
                                     onChange={handleChangeSale}
                                 >
+                                    <option value=''>select</option>
                                     <option value={true}>Sale</option>
                                     <option value={false}>Buying</option>
                                     <option value={null}>All</option>

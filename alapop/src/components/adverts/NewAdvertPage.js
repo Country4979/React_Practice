@@ -150,7 +150,7 @@ const NewAdvertPage = () => {
                             Please try again.
                         </Button>
                     </Modal>
-                    <div>
+                    <div className='newAdvTittle'>
                         <h1>
                             Do you want to buy somthing?
                             <br />

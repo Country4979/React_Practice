@@ -15,6 +15,10 @@
     color: darkred;
     width: 225px;
 }
+.newAdvTittle h1{
+    font-size: 5vh;
+    font-family: var(--font-base);
+}
 
 h2 {
     display: inline-block;
